@@ -1,0 +1,626 @@
+<div class="custom-tabs-container">
+    <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-ProductInfoDetail" data-bs-toggle="tab" href="#ProductInfoDetail"
+                role="tab" aria-controls="ProductInfoDetail" aria-selected="true">
+                <span class="badge bg-info" style="font-size: 16px;">Thông tin</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a style="cursor: pointer;" class="nav-link" id="tab-Close" data-bs-toggle="tab" (click)="Close()"
+                role="tab" aria-controls="Close" aria-selected="false">
+                <span class="badge bg-danger" style="font-size: 16px;"><i class="bi bi-x-lg"></i></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="customTabContent">
+        <div class="tab-pane fade show active" id="ProductInfoDetail" role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <h4>Thông tin sản phẩm</h4>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tên</label>
+                        <input readonly name="Name" [(ngModel)]="ProductInfoService.FormData.Name" placeholder="Tên sản phẩm"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mã GS1</label>
+                        <input readonly name="GS1" [(ngModel)]="ProductInfoService.FormData.GS1" placeholder="Mã GS1" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mã HSCode</label>
+                        <input readonly name="HSCode" [(ngModel)]="ProductInfoService.FormData.HSCode" placeholder="Mã HSCode" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">HSD (tháng)</label>
+                        <input readonly name="HanSuDung" [(ngModel)]="ProductInfoService.FormData.HanSuDung" placeholder="Hạn sử dụng (theo tháng)" type="number"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">HSD sau mở hộp PAO (tháng)</label>
+                        <input readonly name="HanSuDungPAO" [(ngModel)]="ProductInfoService.FormData.HanSuDungPAO" placeholder="HSD sau mở hộp PAO (theo tháng)" type="number"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tiêu chuẩn</label>
+                        <input readonly name="TieuChuan" [(ngModel)]="ProductInfoService.FormData.TieuChuan" placeholder="Tiêu chuẩn" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Khối lượng sản phẩm</label>
+                        <input readonly name="KhoiLuongSanPham" [(ngModel)]="ProductInfoService.FormData.KhoiLuongSanPham" placeholder="Khối lượng sản phẩm" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Quy cách đóng gói</label>
+                        <input readonly name="QuyCachDongGoi" [(ngModel)]="ProductInfoService.FormData.QuyCachDongGoi" placeholder="Quy cách đóng gói" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Quy cách bảo quản</label>
+                        <input readonly name="QuyCachBaoQuan" [(ngModel)]="ProductInfoService.FormData.QuyCachBaoQuan" placeholder="Quy cách bảo quản" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Loại hình sản phẩm</label>
+                        <input readonly name="LoaiHinhSanPham" [(ngModel)]="ProductInfoService.FormData.LoaiHinhSanPham" placeholder="Loại hình sản phẩm" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Giá thấp nhất</label>
+                        <input readonly name="price_min" [(ngModel)]="ProductInfoService.FormData.price_min" placeholder="0"
+                            type="number" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Giá cao nhất</label>
+                        <input readonly name="price_max" [(ngModel)]="ProductInfoService.FormData.price_max" placeholder="0"
+                            type="number" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Ngày công bố</label>
+                        <input readonly 
+                            [ngModel]="ProductInfoService.FormData.congbo_date | date:'yyyy-MM-dd'"
+                            (ngModelChange)="Datecongbo_date($event)" [ngModelOptions]="{ updateOn: 'blur' }"
+                            type="date" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Xuất xứ</label>
+                        <select class="form-select" name="DanhMucQuocGiaID"
+                            [(ngModel)]="ProductInfoService.FormData.DanhMucQuocGiaID">
+                            <option *ngFor="let item of DanhMucQuocGiaService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mặt hàng</label>
+                        <select class="form-select" name="ProductGroupID"
+                            [(ngModel)]="ProductInfoService.FormData.ProductGroupID">
+                            <option *ngFor="let item of ProductGroupService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Nhóm ngành nghề</label>
+                        <select class="form-select" name="ProductInfoService.FormData.CompanyGroupID"
+                            [(ngModel)]="ProductInfoService.FormData.CompanyGroupID">
+                            <option *ngFor="let item of CompanyGroupService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>                   
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Đơn vị</label>
+                        <select class="form-select" name="ProductUnitID"
+                            [(ngModel)]="ProductInfoService.FormData.ProductUnitID">
+                            <option *ngFor="let item of ProductUnitService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Thị trường phân phối</label>
+                        <input readonly name="ThiTruongPhanPhoi" [(ngModel)]="ProductInfoService.FormData.ThiTruongPhanPhoi" placeholder="Thị trường phân phối" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Thông tin cảnh báo người dùng</label>
+                        <textarea name="ThongTinCanhBaoNguoiDung" [(ngModel)]="ProductInfoService.FormData.ThongTinCanhBaoNguoiDung" placeholder="Thông tin cảnh báo người dùng"
+                            type="text" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mô tả thành phần sản phẩm</label>
+                        <textarea name="ThongTinCanhBaoNgMoTaThanhPhanSanPhamuoiDung" [(ngModel)]="ProductInfoService.FormData.MoTaThanhPhanSanPham" placeholder="Mô tả thành phần sản phẩm"
+                            type="text" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Giới thiệu sản phẩm</label>
+                        <textarea name="GioiThieuSanPham" [(ngModel)]="ProductInfoService.FormData.GioiThieuSanPham" placeholder="Giới thiệu sản phẩm"
+                            type="text" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Ghi chú</label>
+                        <textarea name="Note" [(ngModel)]="ProductInfoService.FormData.Note" placeholder="Ghi chú"
+                            type="text" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">File công bố</label>
+                        <br />
+                        <a target="_blank" class="link-primary" title="{{ProductInfoService.FormData.FileName}}" href="{{ProductInfoService.FormData.FileName}}"><b>{{ProductInfoService.FormData.FileName}}</b></a>                        
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Upload file công bố</label>
+                        <br />
+                        <input readonly type="file" (change)="ChangeFileName($event.target.files)">
+                    </div>
+                </div>
+                <!--
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <h4>Danh sách file đính kèm</h4>
+                </div>
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <h4>Danh sách hình ảnh</h4>
+                </div>
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="table-outer">
+                        <div class="table-responsive">
+                            <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                #TapTinDinhKemSort="matSort"
+                                [dataSource]="TapTinDinhKemService.DataSource"
+                                class="table table-striped m-0">
+                                <ng-container matColumnDef="STT">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        STT
+                                    </th>
+                                    <td mat-cell *matCellDef="let element; index as i;"
+                                        style="text-align: center;">
+                                        <div *ngIf="TapTinDinhKemPaginator">
+                                            {{TapTinDinhKemPaginator.pageSize *
+                                            TapTinDinhKemPaginator.pageIndex + i + 1}}
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="ParentID">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Parent
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <select class="form-select" name="element.ParentID"
+                                            [(ngModel)]="element.ParentID">
+                                            <option value="0">
+                                                Root</option>
+                                            <option
+                                                *ngFor="let item of TapTinDinhKemService.ListFilter;"
+                                                [value]="item.ID">
+                                                {{item.Name}}</option>
+                                        </select>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Name">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Tiêu đề
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <input readonly class="form-control" type="text"
+                                            placeholder="Tiêu đề" name="Name{{element.ID}}"
+                                            [(ngModel)]="element.Name">
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Code">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>URL</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <input readonly class="form-control" type="text" placeholder="URL"
+                                            name="Code{{element.ID}}" [(ngModel)]="element.Code">
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Display">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Icon
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <input readonly class="form-control" type="text" placeholder="Icon"
+                                            name="Display{{element.ID}}"
+                                            [(ngModel)]="element.Display">
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="SortOrder">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sắp xếp
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <input readonly class="form-control" type="number" placeholder="0"
+                                            name="SortOrder{{element.ID}}"
+                                            [(ngModel)]="element.SortOrder"
+                                            style="text-align: right;">
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Active">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Kích hoạt
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <div class="form-check form-check-inline">
+                                            <input readonly class="form-check-input" type="checkbox"
+                                                name="Active{{element.ID}}"
+                                                [(ngModel)]="element.Active">
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="FileName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        Upload
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <input readonly type="file"
+                                            (change)="ChangeFileNameTapTinDinhKem(element, $event.target.files)">
+                                        <br />
+                                        <br />
+                                        <img src="{{element.FileName}}" class="img-fluid rounded">
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Save">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <a class="btn btn-info"
+                                            (click)="TapTinDinhKemSave(element)"><i
+                                                class="bi bi-sd-card"></i>
+                                        </a>&nbsp;&nbsp;&nbsp;
+                                        <a class="btn btn-danger"
+                                            (click)="TapTinDinhKemDelete(element)"
+                                            *ngIf="element.ID>0"><i class="bi bi-trash"></i>
+                                        </a>&nbsp;&nbsp;&nbsp;
+                                        <a class="btn btn-success"
+                                            (click)="TapTinDinhKemAdd(element.ID)"
+                                            *ngIf="element.ID>0"><i class="bi bi-shield-check"></i>
+                                        </a>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row
+                                    *matHeaderRowDef="TapTinDinhKemService.DisplayColumns001">
+                                </tr>
+                                <tr mat-row
+                                    *matRowDef="let row; columns: TapTinDinhKemService.DisplayColumns001;">
+                                </tr>
+                            </table>
+                            <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                #TapTinDinhKemPaginator="matPaginator"
+                                [pageSizeOptions]="[10,20,50,100]" [pageSize]="1000"
+                                [showFirstLastButtons]></mat-paginator>
+
+                            <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                #TapTinDinhKemSort="matSort"
+                                [dataSource]="TapTinDinhKemService.DataSource"
+                                class="table table-striped m-0">
+                                <ng-container matColumnDef="STT">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        Danh sách
+                                    </th>
+                                    <td mat-cell *matCellDef="let element; index as i;">
+                                        <div class="row gx-4">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <label class="form-label">Parent</label>
+                                                <select class="form-select" name="element.ParentID"
+                                                    [(ngModel)]="element.ParentID">
+                                                    <option value="0">
+                                                        Root</option>
+                                                    <option
+                                                        *ngFor="let item of TapTinDinhKemService.ListFilter;"
+                                                        [value]="item.ID">
+                                                        {{item.Name}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <label class="form-label">Tiêu đề</label>
+                                                <input readonly class="form-control" type="text"
+                                                    placeholder="Tiêu đề" name="Name{{element.ID}}"
+                                                    [(ngModel)]="element.Name">
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <label class="form-label">URL</label>
+                                                <input readonly class="form-control" type="text"
+                                                    placeholder="URL" name="Code{{element.ID}}"
+                                                    [(ngModel)]="element.Code">
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <label class="form-label">Icon</label>
+                                                <input readonly class="form-control" type="text"
+                                                    placeholder="Icon" name="Display{{element.ID}}"
+                                                    [(ngModel)]="element.Display">
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <label class="form-label">Sắp xếp</label>
+                                                <input readonly class="form-control" type="number"
+                                                    placeholder="0" name="SortOrder{{element.ID}}"
+                                                    [(ngModel)]="element.SortOrder"
+                                                    style="text-align: right;">
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <div class="form-check form-check-inline">
+                                                    <input readonly class="form-check-input" type="checkbox"
+                                                        name="Active{{element.ID}}"
+                                                        [(ngModel)]="element.Active">
+                                                    <label class="form-label">Kích hoạt</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <label class="form-label">Upload</label>
+                                                <br />
+                                                <input readonly type="file"
+                                                    (change)="ChangeFileName(element, $event.target.files)">
+                                                <br />
+                                                <br />
+                                                <img src="{{element.FileName}}"
+                                                    class="img-fluid rounded">
+                                            </div>
+                                            <div class="row gx-4">
+                                                <div class="col-lg-4 col-sm-4 col-4">
+                                                    <a class="btn btn-info" style="width: 100%;"
+                                                        (click)="TapTinDinhKemSave(element)"><i
+                                                            class="bi bi-sd-card"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col-lg-4 col-sm-4 col-4">
+                                                    <a class="btn btn-danger" style="width: 100%;"
+                                                        (click)="TapTinDinhKemDelete(element)"
+                                                        *ngIf="element.ID>0"><i
+                                                            class="bi bi-trash"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col-lg-4 col-sm-4 col-4">
+                                                    <a class="btn btn-danger" style="width: 100%;"
+                                                        (click)="TapTinDinhKemAdd(element)"
+                                                        *ngIf="element.ID>0"><i
+                                                            class="bi bi-trash"></i>
+                                                    </a>
+                                                </div>
+                                                <br />
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row
+                                    *matHeaderRowDef="TapTinDinhKemService.DisplayColumnsMobile">
+                                </tr>
+                                <tr mat-row
+                                    *matRowDef="let row; columns: TapTinDinhKemService.DisplayColumnsMobile;">
+                                </tr>
+                            </table>
+                            <mat-paginator *ngIf="NotificationService.IsMobile"
+                                #TapTinDinhKemPaginator="matPaginator"
+                                [pageSizeOptions]="[10,20,50,100]" [pageSize]="10000"
+                                [showFirstLastButtons]></mat-paginator>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+            <hr/>
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <h4>Nguyên liệu</h4>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Chuẩn loại (Giống)</label>
+                        <input readonly name="NguyenLieuGiong" [(ngModel)]="ProductInfoService.FormData.NguyenLieuGiong" placeholder="Chuẩn loại (Giống)"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tên khoa học</label>
+                        <input readonly name="NguyenLieuTenKhoaHoc" [(ngModel)]="ProductInfoService.FormData.NguyenLieuTenKhoaHoc" placeholder="Tên khoa học"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Sản lượng trung bình 1 vụ</label>
+                        <input readonly name="NguyenLieuSanLuongTrungBinh" [(ngModel)]="ProductInfoService.FormData.NguyenLieuSanLuongTrungBinh" placeholder="Sản lượng trung bình 1 vụ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Chu kỳ sản xuất</label>
+                        <input readonly name="NguyenLieuChuKySanXuat" [(ngModel)]="ProductInfoService.FormData.NguyenLieuChuKySanXuat" placeholder="Chu kỳ sản xuất"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Số lượng nguồn cung ứng</label>
+                        <input readonly name="NguyenLieuSoLuongNguonCungUng" [(ngModel)]="ProductInfoService.FormData.NguyenLieuSoLuongNguonCungUng" placeholder="Số lượng nguồn cung ứng"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Diện tích nguồn cung ứng</label>
+                        <input readonly name="NguyenLieuTongDienTichNguonCungUng" [(ngModel)]="ProductInfoService.FormData.NguyenLieuTongDienTichNguonCungUng" placeholder="Diện tích nguồn cung ứng"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mã số nguồn cung ứng</label>
+                        <input readonly name="NguyenLieuMaSoNguonCungUng" [(ngModel)]="ProductInfoService.FormData.NguyenLieuMaSoNguonCungUng" placeholder="Mã số nguồn cung ứng"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            
+            <hr/>
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <h4>Nhà sản xuất/ chế biến</h4>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tên</label>
+                        <input readonly name="NhaSanXuatCheBienTen" [(ngModel)]="ProductInfoService.FormData.NhaSanXuatCheBienTen" placeholder="Tên"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tiêu chuẩn</label>
+                        <input readonly name="NhaSanXuatCheBienTieuChuan" [(ngModel)]="ProductInfoService.FormData.NhaSanXuatCheBienTieuChuan" placeholder="Tiêu chuẩn"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Địa chỉ</label>
+                        <input readonly name="NhaSanXuatCheBienDiaChi" [(ngModel)]="ProductInfoService.FormData.NhaSanXuatCheBienDiaChi" placeholder="Địa chỉ"
+                            type="text" class="form-control">
+                    </div>
+                    
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Kinh độ</label>
+                        <input readonly name="NhaSanXuatCheBienKinhDo" [(ngModel)]="ProductInfoService.FormData.NhaSanXuatCheBienKinhDo" placeholder="Kinh độ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Vĩ độ</label>
+                        <input readonly name="NhaSanXuatCheBienViDo" [(ngModel)]="ProductInfoService.FormData.NhaSanXuatCheBienViDo" placeholder="Vĩ độ"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            
+            <hr/>
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <h4>Đơn bị đóng gói</h4>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mã số</label>
+                        <input readonly name="DonViDongGoiID" [(ngModel)]="ProductInfoService.FormData.DonViDongGoiID" placeholder="Mã số"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tên</label>
+                        <input readonly name="DonViDongGoiTen" [(ngModel)]="ProductInfoService.FormData.DonViDongGoiTen" placeholder="Tên"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Địa chỉ</label>
+                        <input readonly name="DonViDongGoiDiaChi" [(ngModel)]="ProductInfoService.FormData.DonViDongGoiDiaChi" placeholder="Địa chỉ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Kinh độ</label>
+                        <input readonly name="DonViDongGoiKinhDo" [(ngModel)]="ProductInfoService.FormData.DonViDongGoiKinhDo" placeholder="Kinh độ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Vĩ độ</label>
+                        <input readonly name="DonViDongGoiViDo" [(ngModel)]="ProductInfoService.FormData.DonViDongGoiViDo" placeholder="Vĩ độ"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <h4>Lưu trữ và bảo quản</h4>
+                </div>
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <h5>Kho lưu trữ</h5>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tên kho</label>
+                        <input readonly name="KhoNguyenLieuTen" [(ngModel)]="ProductInfoService.FormData.KhoNguyenLieuTen" placeholder="Tên kho"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mã kho lưu trữ</label>
+                        <input readonly name="KhoNguyenLieuID" [(ngModel)]="ProductInfoService.FormData.KhoNguyenLieuID" placeholder="Mã kho lưu trữ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Điều kiện lưu trữ</label>
+                        <input readonly name="KhoNguyenLieuDieuKienLuuTru" [(ngModel)]="ProductInfoService.FormData.KhoNguyenLieuDieuKienLuuTru" placeholder="Điều kiện lưu trữ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Nhiệt độ lưu trữ</label>
+                        <input readonly name="KhoNguyenLieuNhietDo" [(ngModel)]="ProductInfoService.FormData.KhoNguyenLieuNhietDo" placeholder="Nhiệt độ lưu trữ"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Địa chỉ</label>
+                        <input readonly name="KhoNguyenLieuDiaChi" [(ngModel)]="ProductInfoService.FormData.KhoNguyenLieuDiaChi" placeholder="Địa chỉ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Kinh độ</label>
+                        <input readonly name="KhoNguyenLieuKinhDo" [(ngModel)]="ProductInfoService.FormData.KhoNguyenLieuKinhDo" placeholder="Kinh độ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Vĩ độ</label>
+                        <input readonly name="KhoNguyenLieuViDo" [(ngModel)]="ProductInfoService.FormData.KhoNguyenLieuViDo" placeholder="Vĩ độ"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <h5>Kho thương mại</h5>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tên kho</label>
+                        <input readonly name="KhoThuongMaiTen" [(ngModel)]="ProductInfoService.FormData.KhoThuongMaiTen" placeholder="Tên kho"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mã kho thương mại</label>
+                        <input readonly name="KhoThuongMaiID" [(ngModel)]="ProductInfoService.FormData.KhoThuongMaiID" placeholder="Mã kho thương mại"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Điều kiện lưu trữ</label>
+                        <input readonly name="KhoThuongMaiDieuKienLuuTru" [(ngModel)]="ProductInfoService.FormData.KhoThuongMaiDieuKienLuuTru" placeholder="Điều kiện lưu trữ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Nhiệt độ lưu trữ</label>
+                        <input readonly name="KhoThuongMaiNhietDo" [(ngModel)]="ProductInfoService.FormData.KhoThuongMaiNhietDo" placeholder="Nhiệt độ lưu trữ"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Địa chỉ</label>
+                        <input readonly name="KhoThuongMaiDiaChi" [(ngModel)]="ProductInfoService.FormData.KhoThuongMaiDiaChi" placeholder="Địa chỉ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Kinh độ</label>
+                        <input readonly name="KhoThuongMaiKinhDo" [(ngModel)]="ProductInfoService.FormData.KhoThuongMaiKinhDo" placeholder="Kinh độ"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Vĩ độ</label>
+                        <input readonly name="KhoThuongMaiViDo" [(ngModel)]="ProductInfoService.FormData.KhoThuongMaiViDo" placeholder="Vĩ độ"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <label class="form-label text-danger">Loại xét duyệt</label>
+                    <select class="form-select" name="ProductInfoService.FormData.DanhMucATTPXepLoaiID"
+                        [(ngModel)]="ProductInfoService.FormData.DanhMucATTPXepLoaiID">
+                        <option *ngFor="let item of DanhMucATTPXepLoaiService.List;" [value]="item.ID">
+                            {{item.Name}}</option>
+                    </select>                   
+                </div>
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <a style="width: 100%;" title="Xét duyệt" (click)="ProductInfoSave()" class="btn btn-info"><i
+                            class="bi bi-sd-card"></i> Xét duyệt</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="ProductInfoService.IsShowLoading"></app-loading>

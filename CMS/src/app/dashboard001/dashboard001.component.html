@@ -1,0 +1,170 @@
+<div class="app-body">
+    <div class="mx-n4 p-4 bg-light mb-4">
+        <div class="row gx-4">
+            <div class="col-sm-3 col-12">
+                <div class="card my-2 card-danger">
+                    <div class="card-header">
+                        <h5 class="card-title text-white">Tổng số</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class=" text-white">
+                                <h2 class="display-6 mb-2 fw-semibold">{{ReportService.FormData.ThongKe001 |
+                                    number:'1.0-0'}}</h2>
+                                <h5 class="mb-3 fw-light opacity-75">Đơn vị đã thẩm định lũy kế.</h5>
+                                <div class="progress small">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 75%"
+                                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="ms-3 graph-mini" id="option1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-12">
+                <div class="card my-2 card-success">
+                    <div class="card-header">
+                        <h5 class="card-title text-white">Thẩm định</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class=" text-white">
+                                <h2 class="display-6 mb-2 fw-semibold">{{ReportService.FormData.ThongKe002 |
+                                    number:'1.0-0'}}</h2>
+                                <h5 class="mb-3 fw-light opacity-75">Số lượt thẩm định lũy kế.</h5>
+                                <div class="progress small">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 75%"
+                                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="ms-3 graph-mini" id="option2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-12">
+                <div class="card my-2 card-warning">
+                    <div class="card-header">
+                        <h5 class="card-title text-white">{{ReportService.BaseParameter.Nam}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="text-white">
+                                <h2 class="display-6 mb-2 fw-semibold">{{ReportService.FormData.ThongKe003 |
+                                    number:'1.0-0'}}</h2>
+                                <h5 class="mb-3 fw-light opacity-75">Đơn vị thẩm định trong năm.</h5>
+                                <div class="progress small">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 75%"
+                                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="ms-3 graph-mini" id="option3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-12">
+                <div class="card my-2 card-primary">
+                    <div class="card-header">
+                        <h5 class="card-title text-white bg-primary">{{ReportService.BaseParameter.Nam}}</h5>
+                    </div>
+                    <div class="card-body bg-primary">
+                        <div class="d-flex justify-content-between">
+                            <div class="text-white">
+                                <h2 class="display-6 mb-2 fw-semibold">{{ReportService.FormData.ThongKe004 |
+                                    number:'1.0-0'}}</h2>
+                                <h5 class="mb-3 fw-light opacity-75">Số lượt thẩm định trong năm.</h5>
+                                <div class="progress small">
+                                    <div class="progress-bar bg-white" role="progressbar" style="width: 75%"
+                                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="ms-3 graph-mini" id="option3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row gx-4">
+        <div class="col-lg-12 col-sm-12 col-12" style="padding: 10px;">
+            <div style="border-color: #000000; border-width: 1px; border-style: solid; padding: 10px;">
+                <a style="cursor: pointer;" class="link-primary" (click)="ChartReportDashboard0002Click()">
+                    <h4 class="text-center" style="text-transform: uppercase;">Tổng hợp số liệu Đơn vị đã thẩm định theo
+                        huyện</h4>
+                </a>
+                <canvas id="ChartReportDashboard0002" style="font-size: 30px;" baseChart
+                    [datasets]="ChartDataReportDashboard0002" [labels]="ChartLabelsReportDashboard0002"
+                    [chartType]="ChartTypeReportDashboard0002" [colors]="ChartColorsReportDashboard0002"
+                    [options]="ChartOptionsReportDashboard0002">
+                </canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row gx-4">
+        <div class="col-lg-6 col-sm-12 col-12" style="padding: 10px;">
+            <div style="border-color: #000000; border-width: 1px; border-style: solid; padding: 10px;">
+                <a style="cursor: pointer;" class="link-primary" (click)="ChartReportDashboard0003Click()">
+                    <h4 class="text-center" style="text-transform: uppercase;">Xếp loại An toàn thực phẩm</h4>
+                </a>
+                <canvas id="ChartReportDashboard0003" style="font-size: 30px;" baseChart
+                    [datasets]="ChartDataReportDashboard0003" [labels]="ChartLabelsReportDashboard0003"
+                    [chartType]="ChartTypeReportDashboard0003" [colors]="ChartColorsReportDashboard0003"
+                    [options]="ChartOptionsReportDashboard0003">
+                </canvas>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-12" style="padding: 10px;">
+            <div style="border-color: #000000; border-width: 1px; border-style: solid; padding: 10px;">
+                <a style="cursor: pointer;" class="link-primary" (click)="ChartReportDashboard0004Click()">
+                    <h4 class="text-center" style="text-transform: uppercase;">Danh mục An toàn thực phẩm</h4>
+                </a>
+                <canvas id="ChartReportDashboard0004" style="font-size: 30px;" baseChart
+                    [datasets]="ChartDataReportDashboard0004" [labels]="ChartLabelsReportDashboard0004"
+                    [chartType]="ChartTypeReportDashboard0004" [colors]="ChartColorsReportDashboard0004"
+                    [options]="ChartOptionsReportDashboard0004">
+                </canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row gx-4">
+        <div class="col-lg-12 col-sm-12 col-12">
+            <div style="border-color: #000000; border-width: 1px; border-style: solid; padding: 10px;">
+                <a style="cursor: pointer;" class="link-primary" (click)="ChartReport0009Click()">
+                    <h4 class="text-center" style="text-transform: uppercase;">Số liệu tổng hợp Đơn vị đã thẩm định</h4>
+                </a>
+                <canvas id="ChartReport0009" style="font-size: 30px;" baseChart [datasets]="ChartDataReport0009"
+                    [labels]="ChartLabelsReport0009" [chartType]="ChartTypeReport0009" [colors]="ChartColorsReport0009"
+                    [options]="ChartOptionsReport0009">
+                </canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row gx-4">
+        <div class="col-lg-12 col-sm-12 col-12">
+            <div style="border-color: #000000; border-width: 1px; border-style: solid; padding: 10px;">
+                <div class="row gx-4">
+                    <div class="col-lg-10 col-sm-12 col-12">
+                        <a style="cursor: pointer;" class="link-primary" (click)="ChartReportDashboard0005Click()">
+                            <h4 class="text-center" style="text-transform: uppercase;">Số liệu theo năm Đơn vị đã thẩm định</h4>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-sm-12 col-12">
+                        <select class="form-select" [(ngModel)]="ReportService.BaseParameter.Nam" (change)="ReportDashboard0005()">
+                            <option *ngFor="let item of DownloadService.ListNam001;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <canvas id="ChartReportDashboard0005" style="font-size: 30px;" baseChart
+                    [datasets]="ChartDataReportDashboard0005" [labels]="ChartLabelsReportDashboard0005"
+                    [chartType]="ChartTypeReportDashboard0005" [colors]="ChartColorsReportDashboard0005"
+                    [options]="ChartOptionsReportDashboard0005">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+<app-loading *ngIf="ReportService.IsShowLoading"></app-loading>

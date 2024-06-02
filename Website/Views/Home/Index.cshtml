@@ -1,0 +1,316 @@
+﻿@inject Service.Interface.IKienThucATTPService _KienThucATTPService;
+
+@inject Service.Interface.IGiaoTrinhATTPService _GiaoTrinhATTPService;
+@inject Service.Interface.IReportService _ReportService;
+
+@{
+
+    List<Data.Model.GiaoTrinhATTP> listGiaoTrinhATTP = _GiaoTrinhATTPService.GetByCondition(item => item.Active == true).OrderBy(item => item.ParentID).ToList();
+
+    Data.Model.Report report = await _ReportService.ReportWebsite0001Async();
+
+    List<Data.Model.Report> listReport = await _ReportService.ReportWebsite0003ToListAsync(Helper.GlobalHelper.FTPFull);
+
+    ViewData["Title"] = "Trang chủ";
+    List<Data.Model.KienThucATTP> listKienThucATTP = _KienThucATTPService.GetByActiveToList(true).OrderByDescending(item => item.NgayGhiNhan).ToList();
+    ViewData["Description"] = Helper.GlobalHelper.PageDescription;
+    ViewData["URLImage"] = Helper.GlobalHelper.LogoURL;
+    ViewData["URLCurrent"] = Helper.GlobalHelper.DomainOnlineURL;
+}
+<input type="hidden" id="FTPFull" value="@Helper.GlobalHelper.FTPFull" />
+<header>
+    <div class="bg-white p-0">
+        <div class="container" id="spacing-header">
+            <div class="row header-top">
+                <div class="col-12 col-lg-6">
+                    <div class="container-title">
+                        <div class="row desc-bg ">
+                            <div>
+                                <h4 id="title-bg" class="display-3 text-black animated slideInDown mb-4">Hệ thống quản lý an toàn thực phẩm và truy xuất nguồn gốc nông lâm thủy sản tỉnh Bến Tre</h4>
+                                <p class="sub_desc"> Phần mềm được chủ trì thực hiện bởi Chi Cục Quản Lý Chất Lượng Nông Lâm Thủy Sản tỉnh Bến Tre nhằm hỗ trợ số hóa quy trình, tối ưu công việc, nâng cao hiệu suất trong công tác quản lý và tăng khả năng tương tác với người dân.</p>
+                                <p class="sub_desc"> Các tính năng tra cứu, thống kê, báo cáo và hỗ trợ người dân trong quá trình đăng ký, triển khai các hoạt động sản xuất kinh doanh đạt hiệu quả cao. Hệ thống phù hợp với mục tiêu chuyển đổi số của Chính Phủ và tỉnh Bến Tre.</p>
+                                <br>
+                                <div class="active-bg">
+                                    <div class="row">
+                                        <div class="col-12" style="padding-bottom: 20px;text-align: center;">
+                                            <a title="Đăng nhập sử dụng dịch vụ"
+                                               href="https://login.bentre.vnbook.vn/"
+                                               class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">
+                                                Đăng nhập sử dụng dịch vụ
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6" id="background-img-header">
+                    <div class="contain-img">
+                        <img class="img-fluid" src="./img/homepage.png" alt="Quản lý an toàn thực phẩm và truy xuất nguồn gốc nông lâm thủy sản tỉnh Bến Tre" title="Quản lý an toàn thực phẩm và truy xuất nguồn gốc nông lâm thủy sản tỉnh Bến Tre">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid bg-primary wow fadeIn" id="container-search" data-wow-delay="0.1s">
+            <div class="row" style="justify-content: center;">
+                <div class="col-12 col-md-6">
+                    <div class="position-relative">
+                        <input class="form-control w-100 py-3 ps-4 pe-5" type="text" id="search-input" placeholder="Tìm theo mã số hồ sơ, giấy chứng nhận...">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" id="active-search">
+                            <a style="cursor: pointer;" onclick="ReportSearch()"><i class="fas fa-search"></i></a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>
+<main>
+    <div class="bg-white p-0">
+        <div class="container" style="background-color: #EFFDF5;">
+            <section id="ReportResult" style="display: none;">
+                <br />
+                <div class="content-table">
+                    <div class="table-responsive">
+                        <table class="table-lg" id="customers">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">Quy trình</th>
+                                    <th style="text-align: center;">Đơn vị Tổ chức</th>
+                                    <th style="text-align: center;">Số hồ sơ</th>
+                                    <th style="text-align: center;">Hiệu lực</th>
+                                    <th style="text-align: center;">Hết hạn (nếu có)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ReportBody">
+                            </tbody>
+                        </table>
+                        <script>
+                            function ReportSearch() {
+                                document.getElementById("ReportResult").style.display = "block";
+                                let searchString = document.getElementById("search-input").value;
+                                let json = {
+                                    SearchString: searchString,
+                                }
+                                $.ajax({
+                                    type: 'GET',
+                                    url: 'ReportWebsite0003.json',
+                                    data: {                                        
+                                    },
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        let listReport = data;
+                                        let listReportFilter = listReport.filter(item => item.Code.includes(searchString));                                        
+                                        let html = "";
+                                        if (listReportFilter) {
+                                            if (listReportFilter.length > 0) {                                                
+                                                for (let i = 0; i < listReportFilter.length; i++) {
+                                                    let item = listReportFilter[i];                                                    
+                                                    html = html + '<tr>';
+                                                    if (item.Display) {
+                                                        html = html + '<td><b>' + item.Display + '</b></td>';
+                                                    }
+                                                    else {
+                                                        html = html + '<td></td>';
+                                                    }
+                                                    if (item.Name) {
+                                                        html = html + '<td><b>' + item.Name + '</b></td>';
+                                                    }
+                                                    else {
+                                                        html = html + '<td></td>';
+                                                    }
+                                                    if (item.Code) {
+                                                        html = html + '<td><b>' + item.Code + '</b></td>';
+                                                    }
+                                                    else {
+                                                        html = html + '<td></td>';
+                                                    }
+                                                    if (item.Description) {
+                                                        html = html + '<td style="text-align: right;"><b>' + item.Description + '</b></td>';
+                                                    }
+                                                    else {
+                                                        html = html + '<td></td>';
+                                                    }
+                                                    if (item.HTMLContent) {
+                                                        html = html + '<td style="text-align: right;"><b>' + item.HTMLContent + '</b></td>';
+                                                    }
+                                                    else {
+                                                        html = html + '<td></td>';
+                                                    }
+                                                    html = html + '</tr>';
+                                                }
+                                            }
+                                            else {
+                                                html = html + '<tr>';
+                                                html = html + '<td>Không tìm thấy dữ liệu</td>';
+                                                html = html + '<td>' + SearchString + '</td>';
+                                                html = html + '<td></td>';
+                                                html = html + '<td></td>';
+                                                html = html + '</tr>';
+                                            }
+                                        }
+                                        document.getElementById("ReportBody").innerHTML = html;
+                                    },
+                                    beforeSend: function () {
+                                    },
+                                    complete: function () {
+                                    }
+                                });
+                            }
+                        </script>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h4 class=" wow fadeInUp title-main" data-wow-delay="0.1s">Kết Quả Đạt Được</h4>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="card-item">
+                            <h4 class="mb-3 number">@report.ThongKe001.Value.ToString("N0")</h4>
+                            <h5 class="mb-0 desc-number"> Cơ sở tham gia</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="card-item">
+                            <h4 class="mb-3 number">@report.ThongKe002.Value.ToString("N0")</h4>
+                            <h5 class="mb-0 desc-number"> Cở sở đạt ATTP</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="card-item">
+                            <h4 class="mb-3 number">@report.ThongKe003.Value.ToString("N0")</h4>
+                            <h5 class="mb-0 desc-number"> Sản phẩm công bố</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="card-item">
+                            <h4 class="mb-3 number">@report.ThongKe004.Value.ToString("N0")</h4>
+                            <h5 class="mb-0 desc-number"> Cam kết thông tư 17</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h4 class="wow fadeInUp title-main-info-popular" data-wow-delay="0.1s">Thông Tin Phổ Biến An Toàn Thực Phẩm (ATTP)</h4>
+                    <div class="row g-4">
+                        @{
+                            for (int i = 0; i < listKienThucATTP.Count; i++)
+                            {
+                                if (i < 6)
+                                {
+                                    Data.Model.KienThucATTP item = listKienThucATTP[i];
+                                    item.Code = Helper.GlobalHelper.DomainURL + Helper.GlobalHelper.Blog + "/" + item.Code + "-" + item.ID + ".html";
+                                    {
+                                        <div class="col-12 col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s" id="blog-info-popular">
+                                            <div class="blog-thumb-img">
+                                                <a href="@item.Code">
+                                                    <img style="width: 100%;"
+                                                         src="@item.FileName"
+                                                         title="@item.Name"
+                                                         alt="@item.Name">
+                                                </a>
+                                            </div>
+                                            <h6 class="desc-blog">
+                                                <a href="@item.Code" title="@item.Name">@item.Name</a>
+                                            </h6>
+                                            <p class="shorten-text">
+                                                @item.Description
+                                            </p>
+                                        </div>
+                                    }
+                                }
+
+                            }
+                        }
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h4 class="wow fadeInUp title-main" data-wow-delay="0.1s">Giáo Trình An Toàn Thực Phẩm</h4>
+                <div class="content-table">
+                    <div class="table-responsive">
+                        <table class="table-lg" id="customers">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">Danh mục</th>
+                                    <th style="text-align: center;">Tài liệu</th>
+                                    <th style="text-align: center;">Phát hành</th>
+                                    <th style="text-align: center;">Tải về</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (listGiaoTrinhATTP.Count > 0)
+                                    {
+                                        foreach (GiaoTrinhATTP itemGiaoTrinhATTP in listGiaoTrinhATTP)
+                                        {
+                                            <tr>
+                                                <td>@itemGiaoTrinhATTP.CauHoiNhomName</td>
+                                                <td><a href="@itemGiaoTrinhATTP.FileName" title="@itemGiaoTrinhATTP.FileName">@itemGiaoTrinhATTP.Name</a></td>
+                                                @if (itemGiaoTrinhATTP.NgayGhiNhan != null)
+                                                {
+                                                    <td style="text-align: right;">@itemGiaoTrinhATTP.NgayGhiNhan.Value.ToString("dd/MM/yyyy")</td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right;"></td>
+                                                }
+                                                <td><a href="@itemGiaoTrinhATTP.FileName" title="@itemGiaoTrinhATTP.FileName">Tải về</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="content-form">
+                    <h4 class="fadeInUp title-main" data-wow-delay="0.1s">
+                        Gửi yêu cầu liên hệ
+                    </h4>
+                    <div class="form">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                   placeholder="Họ và tên">
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                   placeholder="Điện thoại">
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
+                                      placeholder="Nội dung"></textarea>
+                        </div>
+                        <div class="active" style="text-align: center;">
+                            <button type="button" class="btn btn-primary" style="width: 200px;">
+                                Gửi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section style="padding-bottom: 40px;">
+                <div class="contact-map-section" data-aos="fade-up" data-aos-duration="1000" style="padding-top: 40px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="contact-pam">
+                                <iframe src="https://www.google.com/maps/d/embed?mid=1ionELhSOqZ6tTTMvwt_MBJHxJPVryR4&ehbc=2E312F"
+                                        width="100%" height="600"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>

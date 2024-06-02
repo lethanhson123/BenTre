@@ -1,0 +1,20 @@
+{
+    "android": {
+        "debug": {
+            "keystore": "upload-keystore.jks",
+            "storePassword": "android",
+            "alias": "qlclbentreadmin",
+            "password" : "android",
+            "keystoreType": "",
+            "packageType": "apk"
+        },
+        "release": {
+            "keystore": "upload-keystore.jks",
+            "storePassword": "android",
+            "alias": "qlclbentreadmin",
+            "password" : "android",
+            "keystoreType": "",
+            "packageType": "bundle"
+        }
+    }
+}

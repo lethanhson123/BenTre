@@ -1,0 +1,209 @@
+<div class="custom-tabs-container">
+    <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-ThanhVienDetail" data-bs-toggle="tab" href="#ThanhVienDetail" role="tab"
+                aria-controls="ThanhVienDetail" aria-selected="false">
+                <span class="badge bg-info" style="font-size: 16px;">Thông tin</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab-ThanhVienPhanQuyenChucNang" data-bs-toggle="tab"
+                href="#ThanhVienPhanQuyenChucNang" role="tab" aria-controls="ThanhVienPhanQuyenChucNang"
+                aria-selected="true">
+                <span class="badge bg-success" style="font-size: 16px;">Chức năng</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a style="cursor: pointer;" class="nav-link" id="tab-Close" data-bs-toggle="tab" (click)="Close()"
+                role="tab" aria-controls="Close" aria-selected="false">
+                <span class="badge bg-danger" style="font-size: 16px;"><i class="bi bi-x-lg"></i></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="customTabContent">
+        <div class="tab-pane fade show active" id="ThanhVienDetail" role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <a style="width: 100%;" title="Lưu thay đổi" (click)="ThanhVienSave()" class="btn btn-info"><i
+                            class="bi bi-sd-card"></i> Lưu thay đổi</a>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="form-check form-check-inline mb-6">
+                        <input type="checkbox" class="form-check-input" name="Active"
+                            [(ngModel)]="ThanhVienService.FormData.Active" />
+                        <label class="form-check-label" for="Active">Kích hoạt</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-4">
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tài khoản [{{ThanhVienService.FormData.ID}}]</label>
+                        <input name="TaiKhoan" [(ngModel)]="ThanhVienService.FormData.TaiKhoan"
+                            [disabled]="ThanhVienService.FormData && ThanhVienService.FormData.ID>0"
+                            placeholder="Tài khoản" type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mật khẩu</label>
+                        <input name="MatKhau" [(ngModel)]="ThanhVienService.FormData.MatKhau" placeholder="Mật khẩu"
+                            type="password" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Họ tên</label>
+                        <input name="Name" [(ngModel)]="ThanhVienService.FormData.Name" placeholder="Họ tên" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">CCCD</label>
+                        <input name="CCCD" [(ngModel)]="ThanhVienService.FormData.CCCD"
+                            placeholder="CCCD" type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Điện thoại</label>
+                        <input name="DienThoai" [(ngModel)]="ThanhVienService.FormData.DienThoai"
+                            placeholder="Điện thoại" type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Email</label>
+                        <input name="Email" [(ngModel)]="ThanhVienService.FormData.Email" placeholder="Email"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Sắp xếp</label>
+                        <input name="SortOrder" [(ngModel)]="ThanhVienService.FormData.SortOrder" placeholder="0"
+                            type="number" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Phân quyền</label>
+                        <select class="form-select" name="ParentID" [(ngModel)]="ThanhVienService.FormData.ParentID">
+                            <option *ngFor="let item of DanhMucThanhVienService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Cơ quan quản lý</label>
+                        <select class="form-select" name="StateAgencyID"
+                            [(ngModel)]="ThanhVienService.FormData.StateAgencyID">
+                            <option [value]="0">
+                                Tất cả</option>
+                            <option *ngFor="let item of StateAgencyService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Phòng ban</label>
+                        <select class="form-select" name="AgencyDepartmentID"
+                            [(ngModel)]="ThanhVienService.FormData.AgencyDepartmentID">
+                            <option *ngFor="let item of AgencyDepartmentService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Chức danh</label>
+                        <select class="form-select" name="DanhMucChucDanhID"
+                            [(ngModel)]="ThanhVienService.FormData.DanhMucChucDanhID">
+                            <option *ngFor="let item of DanhMucChucDanhService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Đơn vị Tổ chức [{{ThanhVienService.FormData.CompanyInfoName}}]</label>
+                        <mat-select class="form-control" name="ThanhVienService.FormData.CompanyInfoID"
+                            [(ngModel)]="ThanhVienService.FormData.CompanyInfoID">
+                            <input placeholder="Tìm..." class="form-control"
+                                (keyup)="CompanyInfoFilter($event.target.value)">
+                            <mat-option *ngFor="let item of CompanyInfoService.ListFilter" [value]="item.ID">
+                                {{item.Name}} - {{item.phone}} - {{item.DKKD}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">URL</label>
+                        <input name="TypeName" [(ngModel)]="ThanhVienService.FormData.TypeName" placeholder="URL"
+                            type="text" class="form-control">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div *ngIf="ThanhVienService.FormData.ID>0" class="tab-pane fade" id="ThanhVienPhanQuyenChucNang"
+            role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-1 col-sm-6 col-12">
+                    <a style="width: 100%;" class="btn btn-success" title="Tìm"
+                        (click)="ThanhVienPhanQuyenChucNangSearch()"><i class="bi bi-search"></i></a>
+
+                </div>
+                <div class="col-lg-2 col-sm-12 col-12">
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input" name="ActiveAll"
+                            (change)="ThanhVienPhanQuyenChucNangActiveAllChange()"
+                            [(ngModel)]="ActiveAllThanhVienPhanQuyenChucNang" />
+                        <label class="form-check-label" for="ActiveAll">Tất cả</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4 card-success">
+                <div class="card-header">
+                    <h5 class="card-title text-white">Phân quyền chức năng
+                        <span
+                            *ngIf="ThanhVienPhanQuyenChucNangService.List">({{ThanhVienPhanQuyenChucNangService.List.length}}
+                            items)</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-outer">
+                        <div class="table-responsive">
+                            <table mat-table matSort #ThanhVienPhanQuyenChucNangSort="matSort"
+                                [dataSource]="ThanhVienPhanQuyenChucNangService.DataSource"
+                                class="table table-striped m-0">
+                                <ng-container matColumnDef="STT">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        STT
+                                    </th>
+                                    <td mat-cell *matCellDef="let element; index as i;" style="text-align: center;">
+                                        {{ThanhVienPhanQuyenChucNangPaginator.pageSize *
+                                        ThanhVienPhanQuyenChucNangPaginator.pageIndex + i + 1}}
+                                        <br/>
+                                        [{{element.ID}}]
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Name">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Chức năng
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.Name}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Active">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Kích hoạt
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox"
+                                                (change)="ThanhVienPhanQuyenChucNangActiveChange(element)"
+                                                name="Active{{element.ID}}" [(ngModel)]="element.Active">
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row
+                                    *matHeaderRowDef="ThanhVienPhanQuyenChucNangService.DisplayColumns001">
+                                </tr>
+                                <tr mat-row
+                                    *matRowDef="let row; columns: ThanhVienPhanQuyenChucNangService.DisplayColumns001;">
+                                </tr>
+                            </table>
+                            <mat-paginator #ThanhVienPhanQuyenChucNangPaginator="matPaginator"
+                                [pageSizeOptions]="[10,20,50,100]" [pageSize]="6"
+                                [showFirstLastButtons]></mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="ThanhVienService.IsShowLoading"></app-loading>

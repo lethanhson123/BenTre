@@ -1,0 +1,8 @@
+Server Widnows:
+
+IP: 10.164.253.26
+IP: 10.164.253.253
+
+user: administrator
+pass: Thu234567cn@123
+

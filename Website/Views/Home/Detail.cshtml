@@ -1,0 +1,111 @@
+﻿@model Data.Model.KienThucATTP
+
+@inject Service.Interface.IKienThucATTPService _KienThucATTPService
+@{
+
+    Model.Code = Helper.GlobalHelper.DomainURL + Helper.GlobalHelper.Blog + "/" + Model.Code + "-" + Model.ID + ".html";
+    List<Data.Model.KienThucATTP> listKienThucATTP = await _KienThucATTPService.GetByParentIDAndActiveToListAsync(Model.ParentID.Value, true);
+    ViewData["Title"] = Model.Name;
+    ViewData["Description"] = Model.Description;
+    ViewData["URLImage"] = Model.FileName;
+    ViewData["URLCurrent"] = Model.Code;
+    ViewData["Title"] = Model.Name;
+}
+
+<header>
+    <div class="bg-white p-0">
+        <div class="container" style="background-color: #EFFDF5;">
+            <div class="container-nav">
+                <div class="row" style="justify-content:center;align-items:center">
+                    <div class="col-12 col-md-3">
+                        <div class="content-img-detail">
+                            <a href="@Helper.GlobalHelper.DomainURL">
+                                <img id="img-detail" src="@Helper.GlobalHelper.LogoURL" alt="@Model.Name"                               
+                                     title="@Model.Name">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <h4 class="desc-detail" style="text-align: justify;font-size:20px">
+                            Hệ thống Quản lý an toàn thực phẩm và truy xuất nguồn gốc nông lâm thủy sản tỉnh Bến Tre
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="bg-white p-0">
+        <div class="container" style="background-color: #EFFDF5;">
+            <section style="padding-bottom: 40px;">
+                <div class="row">
+                    <hr>
+                    <div class="col-12 col-md-12 ps-lg-12 ">
+                        <div class="blog-single-wrapper">
+                            <div class="blog-single-content">
+                                <div class="blog-thumb-img">
+                                    <img style="border-radius: 20px;width: 100%;" src="@Model.FileName"
+                                         title="@Model.Name"
+                                         alt="@Model.Name">
+                                </div>
+                                <br />
+                                <div class="blog-info">
+
+                                    <h4 style="text-align: justify;" class="title">
+                                        @Model.Name
+                                    </h4>
+                                    <div>
+                                        <p style="text-align:justify">
+                                            <span style="font-size:18px">
+                                                <strong>
+                                                    @Model.Description
+                                                </strong>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p style="text-align: justify;">
+                                @Html.Raw(@"" + Model.HTMLContent)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h4 id="title-popular-detail">Thông Tin Phổ Biến An Toàn Thực Phẩm</h4>
+                    </div>
+                    <hr>
+                    @{
+                        foreach (Data.Model.KienThucATTP item in listKienThucATTP)
+                        {
+                            if ((item.ID != Model.ID) && (item.ID != Model.ID))
+                            {
+                                item.Code = Helper.GlobalHelper.DomainURL + Helper.GlobalHelper.Blog + "/" + item.Code + "-" + item.ID + ".html";
+                                <div class="col-12 col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s" id="blog-info-popular">
+                                    <div class="blog-thumb-img">
+                                        <a href="@item.Code">
+                                            <img style="width: 100%;"
+                                                 src="@item.FileName"
+                                                 title="@item.Name"
+                                                 alt="@item.Name">
+                                        </a>
+                                    </div>
+                                    <h6 class="desc-blog">
+                                        <a href="@item.Code" title="@item.Name">@item.Name</a>
+                                    </h6>
+                                    <p class="shorten-text">
+                                        @item.Description
+                                    </p>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+        </div>
+        </section>
+    </div>
+    </div>
+</main>

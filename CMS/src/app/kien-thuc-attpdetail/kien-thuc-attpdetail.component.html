@@ -1,0 +1,78 @@
+<div class="custom-tabs-container">
+    <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-KienThucATTPDetail" data-bs-toggle="tab" href="#KienThucATTPDetail"
+                role="tab" aria-controls="KienThucATTPDetail" aria-selected="true">
+                <span class="badge bg-info" style="font-size: 16px;">Bài viết An toàn thực phẩm</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a style="cursor: pointer;" class="nav-link" id="tab-Close" data-bs-toggle="tab" (click)="Close()"
+                role="tab" aria-controls="Close" aria-selected="false">
+                <span class="badge bg-danger" style="font-size: 16px;"><i class="bi bi-x-lg"></i></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="customTabContent">
+        <div class="tab-pane fade show active" id="KienThucATTPDetail" role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-5 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <a style="width: 100%;" title="Lưu thay đổi" (click)="KienThucATTPSave()"
+                            class="btn btn-info"><i class="bi bi-sd-card"></i> Lưu thay đổi</a>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Nhóm</label>
+                        <select class="form-select" [(ngModel)]="KienThucATTPService.FormData.ParentID">
+                            <option *ngFor="let item of CauHoiNhomService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Tiêu đề</label>
+                        <input name="Name" [(ngModel)]="KienThucATTPService.FormData.Name" placeholder="Tiêu đề"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Mô tả</label>
+                        <input name="Description" [(ngModel)]="KienThucATTPService.FormData.Description"
+                            placeholder="Mô tả" type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Slug</label>
+                        <input name="Code" [(ngModel)]="KienThucATTPService.FormData.Code" placeholder="Slug"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Ngày ghi nhận</label>
+                        <input name="KienThucATTPService.FormData.NgayGhiNhan"
+                            [ngModel]="KienThucATTPService.FormData.NgayGhiNhan | date:'yyyy-MM-dd'"
+                            (ngModelChange)="DateNgayGhiNhan($event)" [ngModelOptions]="{ updateOn: 'blur' }"
+                            type="date" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="form-check form-check-inline mb-6">
+                            <input type="checkbox" class="form-check-input" name="Active"
+                                [(ngModel)]="KienThucATTPService.FormData.Active" />
+                            <label class="form-check-label" for="Active">Kích hoạt</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Hình đại diện: </label>
+                        <br />
+                        <input type="file" (change)="ChangeFileName($event.target.files)">
+                        <br />
+                        <br />
+                        <img src="{{KienThucATTPService.FormData.FileName}}" class="img-fluid rounded">
+                    </div>
+                </div>
+                <div class="col-lg-5 col-sm-12 col-12">
+                    <ck-editor [config]="{'height': 500, 'width': 800}" name="HTMLContent"
+                        [(ngModel)]="KienThucATTPService.FormData.HTMLContent" skin="moono-lisa" language="en"
+                        [fullPage]="true"></ck-editor>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="KienThucATTPService.IsShowLoading"></app-loading>

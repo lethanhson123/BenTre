@@ -1,0 +1,797 @@
+<div class="custom-tabs-container">
+    <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-CompanyInfoDonViDongGoiDetail" data-bs-toggle="tab"
+                href="#CompanyInfoDonViDongGoiDetail" role="tab" aria-controls="CompanyInfoDonViDongGoiDetail"
+                aria-selected="true">
+                <span class="badge bg-info" style="font-size: 16px;">Đăng ký mã số đóng gói</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a style="cursor: pointer;" class="nav-link" id="tab-Close" data-bs-toggle="tab" (click)="Close()"
+                role="tab" aria-controls="Close" aria-selected="false">
+                <span class="badge bg-danger" style="font-size: 16px;"><i class="bi bi-x-lg"></i></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="customTabContent">
+        <div class="tab-pane fade show active" id="CompanyInfoDonViDongGoiDetail" role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <h4>Bước 01: Nhập Thông tin</h4>
+                    </div>
+                    <div class="row gx-4">
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <h4 class="text-center">Thông tin chung</h4>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Loại hồ sơ</label>
+                                <select class="form-select" name="DanhMucATTPLoaiHoSoID" disabled
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.DanhMucATTPLoaiHoSoID">
+                                    <option *ngFor="let item of DanhMucATTPLoaiHoSoService.List;" [value]="item.ID">
+                                        {{item.Name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Tình trạng</label>
+                                <select class="form-select" name="DanhMucATTPTinhTrangID" disabled
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.DanhMucATTPTinhTrangID">
+                                    <option *ngFor="let item of DanhMucATTPTinhTrangService.List;" [value]="item.ID">
+                                        {{item.Name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Tên cơ sở đóng gói</label>
+                                <input name="Name" [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.Name"
+                                    placeholder="Ghi chú" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Mã số vùng trồng</label>
+                                <input name="MaSoVungTrong" [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.MaSoVungTrong"
+                                    placeholder="Mã số vùng trồng" type="text" class="form-control" disabled>
+                            </div>
+                            
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Đại diện cơ sở</label>
+                                <input name="DaiDienCoSo"
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.DaiDienCoSo"
+                                    placeholder="Đại diện cơ sở" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Chức vụ</label>
+                                <input name="DaiDienCoSoChucVu"
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.DaiDienCoSoChucVu"
+                                    placeholder="Chức vụ" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Điện thoại</label>
+                                <input name="DaiDienCoSoDienThoai"
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.DaiDienCoSoDienThoai"
+                                    placeholder="Điện thoại" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Email</label>
+                                <input name="DaiDienCoSoEmail"
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.DaiDienCoSoEmail"
+                                    placeholder="Email" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Ghi chú</label>
+                                <input name="Note" [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.Note"
+                                    placeholder="Ghi chú" type="text" class="form-control" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row gx-4">
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <h4 class="text-center">Thông tin địa chỉ</h4>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Địa chỉ đầy đủ</label>
+                                <input name="DiaChi" [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.DiaChi"
+                                    placeholder="Địa chỉ" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Huyện</label>
+                                <select class="form-select" name="DistrictDataID" disabled
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.DistrictDataID"
+                                    (change)="WardDataSearch()">
+                                    <option *ngFor="let item of DistrictDataService.List;" [value]="item.ID">
+                                        {{item.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Xã</label>
+                                <select class="form-select" name="WardDataID" disabled
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.WardDataID">
+                                    <option *ngFor="let item of WardDataService.List;" [value]="item.ID">
+                                        {{item.Name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Thôn ấp</label>
+                                <input name="ThonAp" [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.ThonAp"
+                                    placeholder="Thôn ấp" type="text" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <div class="col-lg-6 col-sm-12 col-12">
+                                    <label class="form-label">Kinh độ</label>
+                                    <input name="KinhDo" [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.KinhDo"
+                                        placeholder="Kinh độ" type="number" class="form-control" disabled>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-12">
+                                    <label class="form-label">Vĩ độ</label>
+                                    <input name="ViDo" [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.ViDo"
+                                        placeholder="Vĩ độ" type="number" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Bản đồ</label>
+                                <div>
+                                    <a style="width: 100%;" class="btn btn-success" title="Bản đồ"
+                                        (click)="MapLoad()"><i class="bi bi-pin-map"></i> Bản đồ</a>
+                                </div>
+                                <div class="row gx-4" style="position: relative;padding: 10px">
+                                    <div class="map" id="map" #map style="height: 0px; width: 100%;padding: 0;">
+                                        <div style="z-index: 1000; position: absolute; top: 0;">
+                                            <img src="{{domainURL}}assets/image/vungtrong.png" />
+                                        </div>
+                                        <div
+                                            style="z-index: 1000; position: absolute; bottom: 0; width: 100%; height: 20px; background-color: #ffffff;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-4">
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <h4 class="text-center">Thông tin sản xuất</h4>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Diện tích(m2)</label>
+                                <input name="DienTich"
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.DienTich"
+                                    placeholder="Diện tích(m2)" type="number" class="form-control" disabled>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Công xuất tối đa(Tấn/ngày)</label>
+                                <input name="CongSuatToiDa"
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.CongSuatToiDa"
+                                    placeholder="Công xuất tối đa(Tấn/ngày)" type="number" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Sản phẩm</label>
+                                <input name="SanPham"
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.SanPham"
+                                    placeholder="Sản phẩm" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Thị trường</label>
+                                <input name="ThiTruong"
+                                    [(ngModel)]="CompanyInfoDonViDongGoiService.FormData.ThiTruong"
+                                    placeholder="Thị trường" type="text" class="form-control" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <h4>Bước 02: Chọn sản phẩm</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-outer">
+                            <div class="table-responsive">
+                                <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                    #CompanyInfoDonViDongGoiSanPhamSort="matSort"
+                                    [dataSource]="CompanyInfoDonViDongGoiSanPhamService.DataSource"
+                                    class="table table-striped m-0">
+                                    <ng-container matColumnDef="STT">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            STT
+                                        </th>
+                                        <td mat-cell *matCellDef="let element; index as i" style="text-align: center">
+                                            <div *ngIf="CompanyInfoDonViDongGoiSanPhamPaginator">
+                                                {{
+                                                CompanyInfoDonViDongGoiSanPhamPaginator.pageSize *
+                                                CompanyInfoDonViDongGoiSanPhamPaginator.pageIndex +
+                                                i +
+                                                1
+                                                }}
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="Name">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tên sản phẩm
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.Name}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="Note">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ghi chú
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.Note}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="Save">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                                        <td mat-cell *matCellDef="let element">
+                                         
+                                            <a class="btn btn-info"
+                                                (click)="CompanyInfoDonViDongGoiSanPhamSave(element)"><i
+                                                    class="bi bi-sd-card"></i>
+                                            </a>&nbsp;&nbsp;&nbsp;
+                                            <a class="btn btn-danger"
+                                                (click)="CompanyInfoDonViDongGoiSanPhamDelete(element)"
+                                                *ngIf="element.ID>0"><i class="bi bi-trash"></i>
+                                            </a>
+                                            
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row
+                                        *matHeaderRowDef="CompanyInfoDonViDongGoiSanPhamService.DisplayColumns001">
+                                    </tr>
+                                    <tr mat-row
+                                        *matRowDef="let row;columns: CompanyInfoDonViDongGoiSanPhamService.DisplayColumns001">
+                                    </tr>
+                                </table>
+                                <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                    #CompanyInfoDonViDongGoiSanPhamPaginator="matPaginator"
+                                    [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="10000"
+                                    [showFirstLastButtons]></mat-paginator>
+
+
+                                <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                    #CompanyInfoDonViDongGoiSanPhamSort="matSort"
+                                    [dataSource]="CompanyInfoDonViDongGoiSanPhamService.DataSource"
+                                    class="table table-striped m-0">
+                                    <ng-container matColumnDef="STT">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            Danh sách
+                                        </th>
+                                        <td mat-cell *matCellDef="let element; index as i">
+                                            <div class="row gx-4">
+                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                    <label>Tên sản phẩm</label>
+                                                    <input name="Name" [(ngModel)]="element.Name"
+                                                        placeholder="Tên sản phẩm" type="text" class="form-control">
+                                                </div>
+                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                    <label>Ghi chú</label>
+                                                    <input name="Note" [(ngModel)]="element.Note" placeholder="Ghi chú"
+                                                        type="text" class="form-control">
+                                                </div>
+                                                
+                                                <div class="row gx-4">
+                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                        <a class="btn btn-info" style="width: 100%"
+                                                            (click)="CompanyInfoDonViDongGoiSanPhamSave(element)"><i
+                                                                class="bi bi-sd-card"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                        <a class="btn btn-danger" style="width: 100%"
+                                                            (click)="CompanyInfoDonViDongGoiSanPhamDelete(element)"
+                                                            *ngIf="element.ID > 0"><i class="bi bi-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                    <br />
+                                                    <br />
+                                                </div>
+                                                
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row
+                                        *matHeaderRowDef="CompanyInfoDonViDongGoiSanPhamService.DisplayColumnsMobile">
+                                    </tr>
+                                    <tr mat-row
+                                        *matRowDef="let row;columns: CompanyInfoDonViDongGoiSanPhamService.DisplayColumnsMobile">
+                                    </tr>
+                                </table>
+                                <mat-paginator *ngIf="NotificationService.IsMobile"
+                                    #CompanyInfoDonViDongGoiSanPhamPaginator="matPaginator"
+                                    [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="10000"
+                                    [showFirstLastButtons]></mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <h4>Bước 03: Chọn thị trường</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-outer">
+                            <div class="table-responsive">
+                                <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                    #CompanyInfoDonViDongGoiThiTruongSort="matSort"
+                                    [dataSource]="CompanyInfoDonViDongGoiThiTruongService.DataSource"
+                                    class="table table-striped m-0">
+                                    <ng-container matColumnDef="STT">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            STT
+                                        </th>
+                                        <td mat-cell *matCellDef="let element; index as i" style="text-align: center">
+                                            <div *ngIf="CompanyInfoDonViDongGoiThiTruongPaginator">
+                                                {{
+                                                CompanyInfoDonViDongGoiThiTruongPaginator.pageSize *
+                                                CompanyInfoDonViDongGoiThiTruongPaginator.pageIndex +
+                                                i +
+                                                1
+                                                }}
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="Name">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tên thị trường
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.Name}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="Note">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ghi chú
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.Note}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="Save">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                                        <td mat-cell *matCellDef="let element">
+                                     
+                                            <a class="btn btn-info"
+                                                (click)="CompanyInfoDonViDongGoiThiTruongSave(element)"><i
+                                                    class="bi bi-sd-card"></i>
+                                            </a>&nbsp;&nbsp;&nbsp;
+                                            <a class="btn btn-danger"
+                                                (click)="CompanyInfoDonViDongGoiThiTruongDelete(element)"
+                                                *ngIf="element.ID>0"><i class="bi bi-trash"></i>
+                                            </a>
+                                            
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row
+                                        *matHeaderRowDef="CompanyInfoDonViDongGoiThiTruongService.DisplayColumns001">
+                                    </tr>
+                                    <tr mat-row
+                                        *matRowDef="let row;columns: CompanyInfoDonViDongGoiThiTruongService.DisplayColumns001">
+                                    </tr>
+                                </table>
+                                <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                    #CompanyInfoDonViDongGoiThiTruongPaginator="matPaginator"
+                                    [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="10000"
+                                    [showFirstLastButtons]></mat-paginator>
+
+
+                                <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                    #CompanyInfoDonViDongGoiThiTruongSort="matSort"
+                                    [dataSource]="CompanyInfoDonViDongGoiThiTruongService.DataSource"
+                                    class="table table-striped m-0">
+                                    <ng-container matColumnDef="STT">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            Danh sách
+                                        </th>
+                                        <td mat-cell *matCellDef="let element; index as i">
+                                            <div class="row gx-4">
+                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                    <label>Tên sản phẩm</label>
+                                                    <input name="Name" [(ngModel)]="element.Name"
+                                                        placeholder="Tên sản phẩm" type="text" class="form-control">
+                                                </div>
+                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                    <label>Ghi chú</label>
+                                                    <input name="Note" [(ngModel)]="element.Note" placeholder="Ghi chú"
+                                                        type="text" class="form-control">
+                                                </div>
+                                               
+                                                <div class="row gx-4">
+                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                        <a class="btn btn-info" style="width: 100%"
+                                                            (click)="CompanyInfoDonViDongGoiThiTruongSave(element)"><i
+                                                                class="bi bi-sd-card"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                        <a class="btn btn-danger" style="width: 100%"
+                                                            (click)="CompanyInfoDonViDongGoiThiTruongDelete(element)"
+                                                            *ngIf="element.ID > 0"><i class="bi bi-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                    <br />
+                                                    <br />
+                                                </div>
+                                               
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row
+                                        *matHeaderRowDef="CompanyInfoDonViDongGoiThiTruongService.DisplayColumnsMobile">
+                                    </tr>
+                                    <tr mat-row
+                                        *matRowDef="let row;columns: CompanyInfoDonViDongGoiThiTruongService.DisplayColumnsMobile">
+                                    </tr>
+                                </table>
+                                <mat-paginator *ngIf="NotificationService.IsMobile"
+                                    #CompanyInfoDonViDongGoiThiTruongPaginator="matPaginator"
+                                    [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="10000"
+                                    [showFirstLastButtons]></mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="card mb-4 card-success">
+                        <div class="card-header">
+                            <h5 class="card-title text-white">Bước 02: Chọn nhân viên
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-outer">
+                                <div class="table-responsive">
+                                    <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                        #CompanyInfoDonViDongGoiNongHoSort="matSort"
+                                        [dataSource]="CompanyInfoDonViDongGoiNongHoService.DataSource"
+                                        class="table table-striped m-0">
+                                        <ng-container matColumnDef="ThanhVienID">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nhân viên
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <select *ngIf="element.ID==0" class="form-select"
+                                                    name="element.ThanhVienID" [(ngModel)]="element.ThanhVienID">
+                                                    <option *ngFor="let item of ThanhVienService.List;"
+                                                        [value]="item.ID">
+                                                        {{item.Name}} - {{item.CCCD}}</option>
+                                                </select>
+                                                <div *ngIf="element.ID>0">
+                                                    <b>{{element.Name}}</b>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="CCCD">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>CCCD
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input class="form-control" type="text"
+                                                placeholder="CCCD" name="CCCD{{ element.ID }}"
+                                                [(ngModel)]="element.CCCD"  disabled/>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="DienThoai">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>DienThoai
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input class="form-control" type="text"
+                                                placeholder="DienThoai" name="DienThoai{{ element.ID }}"
+                                                [(ngModel)]="element.DienThoai" disabled />
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Email">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input class="form-control" type="text"
+                                                placeholder="Email" name="Email{{ element.ID }}"
+                                                [(ngModel)]="element.Email" disabled />
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Note">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Note
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input class="form-control" type="text"
+                                                placeholder="Note" name="Note{{ element.ID }}"
+                                                [(ngModel)]="element.Note"  disabled/>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Save">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                   
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="CompanyInfoDonViDongGoiNongHoService.DisplayColumns001">
+                                        </tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: CompanyInfoDonViDongGoiNongHoService.DisplayColumns001;">
+                                        </tr>
+                                    </table>
+                                    <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                        #CompanyInfoDonViDongGoiNongHoPaginator="matPaginator"
+                                        [pageSizeOptions]="[10,20,50,100]" [pageSize]="1000"
+                                        [showFirstLastButtons]></mat-paginator>
+
+                                    <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                        #CompanyInfoDonViDongGoiNongHoSort="matSort"
+                                        [dataSource]="CompanyInfoDonViDongGoiNongHoService.DataSource"
+                                        class="table table-striped m-0">
+                                        <ng-container matColumnDef="STT">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Danh sách
+                                            </th>
+                                            <td mat-cell *matCellDef="let element; index as i;">
+                                                <div class="row gx-4">
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <label>Cán bộ: </label>
+                                                        <select *ngIf="element.ID==0" class="form-select"
+                                                            name="element.ThanhVienID"
+                                                            [(ngModel)]="element.ThanhVienID">
+                                                            <option *ngFor="let item of ThanhVienService.List;"
+                                                                [value]="item.ID">
+                                                                {{item.Name}} - {{item.CCCD}}</option>
+                                                        </select>
+                                                        <label class="form-label"
+                                                            *ngIf="element.ID>0">{{element.Name}}</label>
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <label>CCCD: </label>
+                                                        <input class="form-control" type="text"
+                                                        placeholder="CCCD" name="CCCD{{ element.ID }}"
+                                                        [(ngModel)]="element.CCCD" disabled />
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <label>Điện thoại: </label>
+                                                        <input class="form-control" type="text"
+                                                        placeholder="Điện thoại" name="DienThoai{{ element.ID }}"
+                                                        [(ngModel)]="element.DienThoai" disabled />
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <label>Email: </label>
+                                                        <input class="form-control" type="text"
+                                                        placeholder="Email" name="Email{{ element.ID }}"
+                                                        [(ngModel)]="element.Email" disabled />
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <label>Note: </label>
+                                                        <input class="form-control" type="text"
+                                                        placeholder="Note" name="Note{{ element.ID }}"
+                                                        [(ngModel)]="element.Note" disabled/>
+                                                    </div>
+                                                    <div class="row gx-4">
+                                                        <div class="col-lg-12 col-sm-12 col-12">
+
+                                                        </div>
+                                                        <br />
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="CompanyInfoDonViDongGoiNongHoService.DisplayColumnsMobile">
+                                        </tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: CompanyInfoDonViDongGoiNongHoService.DisplayColumnsMobile;">
+                                        </tr>
+                                    </table>
+                                    <mat-paginator *ngIf="NotificationService.IsMobile"
+                                        #CompanyInfoDonViDongGoiNongHoPaginator="matPaginator"
+                                        [pageSizeOptions]="[10,20,50,100]" [pageSize]="10000"
+                                        [showFirstLastButtons]></mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <h4>Bước 03: Tải lên biểu mẫu</h4>
+                    </div>
+                    <div class="table-outer">
+                        <div class="table-responsive">
+
+                            <div class="table-outer">
+                                <div class="table-responsive">
+                                    <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                        #CompanyInfoDonViDongGoiDocumentsSort="matSort"
+                                        [dataSource]="CompanyInfoDonViDongGoiDocumentsService.DataSource"
+                                        class="table table-striped m-0">
+                                        <ng-container matColumnDef="Name">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Hồ sơ
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" style="width: 400px;">
+                                                <input class="form-control" type="text"
+                                                placeholder="Name" name="Name{{ element.ID }}"
+                                                [(ngModel)]="element.Name" disabled />
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="FileName">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tải lên
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input type="file" disabled
+                                                    (change)="ChangeFileName(element, $event.target.files)">
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Save">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <a *ngIf="element.ID > 0 && element.FileName" class="btn btn-success" title="Tải về"
+                                                    href="{{element.FileName}}" target="_blank"><i class="bi bi-cloud-download"></i>
+                                                </a>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="CompanyInfoDonViDongGoiDocumentsService.DisplayColumns001">
+                                        </tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: CompanyInfoDonViDongGoiDocumentsService.DisplayColumns001;">
+                                        </tr>
+                                    </table>
+                                    <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                        #CompanyInfoDonViDongGoiDocumentsPaginator="matPaginator"
+                                        [pageSizeOptions]="[10,20,50,100]" [pageSize]="1000"
+                                        [showFirstLastButtons]></mat-paginator>
+
+                                    <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                        #CompanyInfoDonViDongGoiDocumentsSort="matSort"
+                                        [dataSource]="CompanyInfoDonViDongGoiDocumentsService.DataSource"
+                                        class="table table-striped m-0">
+                                        <ng-container matColumnDef="STT">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Danh sách
+                                            </th>
+                                            <td mat-cell *matCellDef="let element; index as i;">
+                                                <div class="row gx-4">
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <label>Hồ sơ: </label>
+                                                        <input class="form-control" type="text"
+                                                        placeholder="Name" name="Name{{ element.ID }}"
+                                                        [(ngModel)]="element.Name" disabled />
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <label>Tải lên: </label>
+                                                        <br />
+                                                        <input type="file" disabled
+                                                            (change)="ChangeFileName(element, $event.target.files)">
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <a *ngIf="element.ID > 0 && element.FileName" class="btn btn-success" title="Tải về"
+                                                            href="{{element.FileName}}" target="_blank"><i class="bi bi-cloud-download"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="CompanyInfoDonViDongGoiDocumentsService.DisplayColumnsMobile">
+                                        </tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: CompanyInfoDonViDongGoiDocumentsService.DisplayColumnsMobile;">
+                                        </tr>
+                                    </table>
+                                    <mat-paginator *ngIf="NotificationService.IsMobile"
+                                        #CompanyInfoDonViDongGoiDocumentsPaginator="matPaginator"
+                                        [pageSizeOptions]="[10,20,50,100]" [pageSize]="10000"
+                                        [showFirstLastButtons]></mat-paginator>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <h4>Bước 04: Nhận xét phê duyệt</h4>
+                    </div>
+                    <div class="table-outer">
+                        <div class="table-responsive">
+                            <table *ngIf="!NotificationService.IsMobile" mat-table matSort #CompanyInfoDonViDongGoiDocumentsSort="matSort"
+                            [dataSource]="CompanyInfoDonViDongGoiDocumentsService.DataSource002" class="table table-striped m-0">
+                            <ng-container matColumnDef="Name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Hồ sơ
+                                </th>
+                                <td mat-cell *matCellDef="let element" style="width: 400px;">
+                                    <input class="form-control" type="text" 
+                                    placeholder="Name" name="Name{{ element.ID }}"
+                                    [(ngModel)]="element.Name"  disabled />
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Note">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Diễn Giải Sai Lỗi
+                                </th>
+                                <td mat-cell *matCellDef="let element" style="width: 400px;">
+                                    <input class="form-control" type="text"
+                                    placeholder="Note" name="Note{{ element.ID }}"
+                                    [(ngModel)]="element.Note" disabled />
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="FileName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tải lên
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <input type="file" disabled
+                                        (change)="ChangeFileName(element, $event.target.files)">
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Save">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <a *ngIf="element.ID > 0 && element.FileName" class="btn btn-success" title="Tải về"
+                                        href="{{element.FileName}}" target="_blank"><i class="bi bi-cloud-download"></i>
+                                    </a>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="CompanyInfoDonViDongGoiDocumentsService.DisplayColumns002">
+                            </tr>
+                            <tr mat-row *matRowDef="let row; columns: CompanyInfoDonViDongGoiDocumentsService.DisplayColumns002;">
+                            </tr>
+                        </table>
+                        <mat-paginator *ngIf="!NotificationService.IsMobile" #CompanyInfoDonViDongGoiDocumentsPaginator="matPaginator"
+                            [pageSizeOptions]="[10,20,50,100]" [pageSize]="1000" [showFirstLastButtons]></mat-paginator>
+
+                        <table *ngIf="NotificationService.IsMobile" mat-table matSort #CompanyInfoDonViDongGoiDocumentsSort="matSort"
+                            [dataSource]="CompanyInfoDonViDongGoiDocumentsService.DataSource002" class="table table-striped m-0">
+                            <ng-container matColumnDef="STT">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Danh sách
+                                </th>
+                                <td mat-cell *matCellDef="let element; index as i;">
+                                    <div class="row gx-4">
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label>Hồ sơ: </label>
+                                            <input class="form-control" type="text"
+                                            placeholder="Name" name="Name{{ element.ID }}"
+                                            [(ngModel)]="element.Name" disabled />
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label>Diễn Giải Sai Lỗi: </label>
+                                            <input class="form-control" type="text"
+                                            placeholder="Note" name="Note{{ element.ID }}"
+                                            [(ngModel)]="element.Note" disabled />
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label>Tải lên: </label>
+                                            <br />
+                                            <input type="file" disabled
+                                                (change)="ChangeFileName(element, $event.target.files)">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <a *ngIf="element.ID > 0 && element.FileName" class="btn btn-success" title="Tải về"
+                                                href="{{element.FileName}}" target="_blank"><i class="bi bi-cloud-download"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="CompanyInfoDonViDongGoiDocumentsService.DisplayColumnsMobile">
+                            </tr>
+                            <tr mat-row *matRowDef="let row; columns: CompanyInfoDonViDongGoiDocumentsService.DisplayColumnsMobile;">
+                            </tr>
+                        </table>
+                        <mat-paginator *ngIf="NotificationService.IsMobile" #CompanyInfoDonViDongGoiDocumentsPaginator="matPaginator"
+                            [pageSizeOptions]="[10,20,50,100]" [pageSize]="10000" [showFirstLastButtons]></mat-paginator>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <app-loading *ngIf="CompanyInfoDonViDongGoiService.IsShowLoading"></app-loading>

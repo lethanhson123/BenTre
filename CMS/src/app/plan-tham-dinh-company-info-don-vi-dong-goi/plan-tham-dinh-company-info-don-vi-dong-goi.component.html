@@ -1,0 +1,234 @@
+<div class="app-body">
+    <div class="row">
+      <div class="col-xxl-12">
+        <div class="card" style="margin-left: 1px">
+          <div class="card-body">
+            <div class="custom-tabs-container">
+              <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link active" id="tab-PlanThamDinh" data-bs-toggle="tab" href="#PlanThamDinh" role="tab"
+                    aria-controls="PlanThamDinh" aria-selected="true">
+                    <span class="badge bg-info" style="font-size: 16px">Thẩm định cơ sở đóng gói</span>
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content" id="customTabContent">
+                <div class="tab-pane fade show active" id="PlanThamDinh" role="tabpanel">
+                  <div class="row gx-4">
+                    <div class="col-lg-3 col-sm-12 col-12">
+                      <label *ngIf="!NotificationService.IsMobile" class="form-label">Bắt đầu</label>
+                      <input [ngModel]="PlanThamDinhService.BaseParameter.BatDau | date:'yyyy-MM-dd'"
+                        (ngModelChange)="DateBatDau($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                        class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12">
+                      <label *ngIf="!NotificationService.IsMobile" class="form-label">Kết thúc</label>
+                      <input [ngModel]="PlanThamDinhService.BaseParameter.KetThuc | date:'yyyy-MM-dd'"
+                        (ngModelChange)="DateKetThuc($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                        class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-lg-4 col-sm-12 col-12">
+                      <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                      <input [(ngModel)]="PlanThamDinhService.BaseParameter.SearchString" placeholder="Tìm ..."
+                        class="form-control" (keyup.enter)="PlanThamDinhSearch()" />
+                    </div>
+                    <div class="col-lg-2 col-sm-12 col-12">
+                      <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                      <div class="row gx-4">
+                        <div class="col-lg-6 col-sm-6 col-6">
+                          <a style="width: 100%;" class="btn btn-success" title="Tìm" (click)="PlanThamDinhSearch()"><i
+                              class="bi bi-search"></i></a>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-6">
+                          <a style="width: 100%;" class="btn btn-success" title="Thêm mới" (click)="PlanThamDinhAdd(0)"><i
+                              class="bi bi-plus"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card mb-4 card-info">
+                    <div class="card-header">
+                      <h5 class="card-title text-white">
+                        Danh sách
+                        <span *ngIf="PlanThamDinhService.List">({{PlanThamDinhService.List.length}} items)</span>
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-outer">
+                        <div class="table-responsive">
+                          <table *ngIf="!NotificationService.IsMobile" mat-table matSort #PlanThamDinhSort="matSort"
+                            [dataSource]="PlanThamDinhService.DataSource" class="table table-striped m-0">
+                            <ng-container matColumnDef="Save">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                              <td mat-cell *matCellDef="let element">
+                                <div class="row gx-4">
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    <a style="width: 100%;" class="btn btn-success"
+                                      (click)="PlanThamDinhCompaniesAdd(element.ID)" *ngIf="element.ID > 0"><i
+                                        class="bi bi-people"></i> Hồ sơ
+                                    </a>
+                                  </div>
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    <a style="width: 100%;" class="btn btn-success" (click)="PlanThamDinhCopy(element)"
+                                      *ngIf="element.ID > 0"><i class="bi bi-subtract"></i> Copy
+                                    </a>
+                                  </div>
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    <a style="width: 100%;" class="btn btn-success" (click)="MailAdd(element.ID)"
+                                      *ngIf="element.ID > 0"><i class="bi bi-envelope-check"></i> Thông báo
+                                    </a>
+                                  </div>
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    <a style="width: 100%;" class="btn btn-danger" (click)="PlanThamDinhDelete(element)"
+                                      *ngIf="element.ID > 0"><i class="bi bi-trash"></i> Xóa
+                                    </a>
+                                  </div>
+                                </div>
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="STT">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                STT
+                              </th>
+                              <td mat-cell *matCellDef="let element; index as i" style="text-align: center">
+                                <div *ngIf="PlanThamDinhPaginator">
+                                  {{
+                                  PlanThamDinhPaginator.pageSize *
+                                  PlanThamDinhPaginator.pageIndex +
+                                  i +
+                                  1
+                                  }}
+                                  <br />
+                                  [{{element.ID}}]
+                                </div>
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Name">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Nội dung
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                <div class="row gx-4">
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    <a style="cursor: pointer" title="{{element.Name}}" class="link-primary"
+                                      (click)="PlanThamDinhAdd(element.ID)"><b>{{element.Name}}</b></a>
+                                  </div>
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    Bắt đầu: <a style="cursor: pointer" title="{{element.NgayBatDau}}"
+                                      class="link-primary" (click)="PlanThamDinhAdd(element.ID)"><b>{{element.NgayBatDau
+                                        | date:'dd/MM/yyyy'}}</b></a>
+                                  </div>
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    Kết thúc: <a style="cursor: pointer" title="{{element.NgayKetThuc}}"
+                                      class="link-primary" (click)="PlanThamDinhAdd(element.ID)"><b>{{element.NgayKetThuc
+                                        | date:'dd/MM/yyyy'}}</b></a>
+                                  </div>
+                                </div>
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Description">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Cán bộ tham gia
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                <div class="row gx-4">
+                                  <div class="col-lg-12 col-sm-12 col-12"
+                                    *ngFor="let itemPlanThamDinhThanhVien of element.ListPlanThamDinhThanhVien;">
+                                    <label>{{itemPlanThamDinhThanhVien.DanhMucChucDanhName}}:</label>
+                                    <a style="cursor: pointer;" title="{{itemPlanThamDinhThanhVien.ThanhVienName}}"
+                                      class="link-primary"
+                                      (click)="ThanhVienAdd(itemPlanThamDinhThanhVien.ID)"><b>{{itemPlanThamDinhThanhVien.ThanhVienName}}</b></a>
+                                  </div>
+                                </div>
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="HTMLContent">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Đơn vị Tổ chức
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                <div class="row gx-4">
+                                  <div class="col-lg-12 col-sm-12 col-12"
+                                    *ngFor="let itemPlanThamDinhCompanies of element.ListPlanThamDinhCompanies;">
+                                    <label>{{itemPlanThamDinhCompanies.DanhMucATTPLoaiHoSoName}}:</label>
+                                    <a style="cursor: pointer;" title="{{itemPlanThamDinhCompanies.CompanyInfoName}}"
+                                      class="link-primary"
+                                      (click)="CompanyInfoAdd(itemPlanThamDinhCompanies.CompanyInfoID)"><b>{{itemPlanThamDinhCompanies.CompanyInfoName}}</b></a>
+                                  </div>
+                                </div>
+                              </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="PlanThamDinhService.DisplayColumns006"></tr>
+                            <tr mat-row *matRowDef="let row; columns: PlanThamDinhService.DisplayColumns006"></tr>
+                          </table>
+                          <mat-paginator *ngIf="!NotificationService.IsMobile" #PlanThamDinhPaginator="matPaginator"
+                            [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="6"
+                            [showFirstLastButtons]></mat-paginator>
+  
+                          <table *ngIf="NotificationService.IsMobile" mat-table matSort #PlanThamDinhSort="matSort"
+                            [dataSource]="PlanThamDinhService.DataSource" class="table table-striped m-0">
+                            <ng-container matColumnDef="STT">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Danh sách
+                              </th>
+                              <td mat-cell *matCellDef="let element; index as i">
+                                <div class="row gx-4">
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    <label>Nội dung: </label>
+                                    <a style="cursor: pointer" title="{{element.Name}}" class="link-primary"
+                                      (click)="PlanThamDinhAdd(element.ID)"><b>{{element.Name}}</b></a>
+                                  </div>
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    <label>Bắt đầu: </label>
+                                    <a style="cursor: pointer" title="{{element.NgayBatDau}}" class="link-primary"
+                                      (click)="PlanThamDinhAdd(element.ID)"><b>{{element.NgayBatDau
+                                        | date:'dd/MM/yyyy'}}</b></a>
+                                  </div>
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    <label>Kết thúc: </label>
+                                    <a style="cursor: pointer" title="{{element.NgayKetThuc}}" class="link-primary"
+                                      (click)="PlanThamDinhAdd(element.ID)"><b>{{element.NgayKetThuc
+                                        | date:'dd/MM/yyyy'}}</b></a>
+                                  </div>
+                                  <div class="row gx-4">
+                                    <div class="col-lg-12 col-sm-12 col-12">
+                                      <a style="width: 100%;" class="btn btn-success"
+                                        (click)="PlanThamDinhCompaniesAdd(element.ID)" *ngIf="element.ID>0"><i
+                                          class="bi bi-people"></i> Hồ sơ
+                                      </a>
+                                    </div>
+                                    <div class="col-lg-12 col-sm-12 col-12">
+                                      <a style="width: 100%;" class="btn btn-success" (click)="MailAdd(element.ID)"
+                                        *ngIf="element.ID>0"><i class="bi bi-envelope-check"></i> Thông báo
+                                      </a>
+                                    </div>
+                                    <div class="col-lg-12 col-sm-12 col-12">
+                                      <a style="width: 100%;" class="btn btn-danger" (click)="PlanThamDinhDelete(element)"
+                                        *ngIf="element.ID>0"><i class="bi bi-trash"></i> Xóa
+                                      </a>
+                                    </div>
+                                    <br />
+                                    <br />
+                                  </div>
+                                </div>
+                              </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="PlanThamDinhService.DisplayColumnsMobile"></tr>
+                            <tr mat-row *matRowDef="let row;columns: PlanThamDinhService.DisplayColumnsMobile"></tr>
+                          </table>
+                          <mat-paginator *ngIf="NotificationService.IsMobile" #PlanThamDinhPaginator="matPaginator"
+                            [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="10000"
+                            [showFirstLastButtons]></mat-paginator>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-loading *ngIf="PlanThamDinhService.IsShowLoading"></app-loading>

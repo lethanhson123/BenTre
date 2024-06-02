@@ -1,0 +1,85 @@
+<div class="app-body">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card" style="margin-left: 1px;">
+                <div class="card-body">
+                    <div class="custom-tabs-container">
+                        <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="tab-ThanhVien" data-bs-toggle="tab" href="#ThanhVien"
+                                    role="tab" aria-controls="ThanhVien" aria-selected="true">
+                                    <span class="badge bg-info" style="font-size: 16px;">Thông tin</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="customTabContent">
+                            <div class="tab-pane fade show active" id="ThanhVien" role="tabpanel">
+                                <div class="row gx-4">              
+                                    <div class="col-lg-6 col-sm-12 col-12">
+                                        <a style="width: 100%;" title="Lưu thay đổi" (click)="ThanhVienSave()" class="btn btn-info"><i
+                                                class="bi bi-sd-card"></i> Lưu thay đổi</a>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-12 col-12">
+                                        <div class="form-check form-check-inline mb-6">
+                                            <input type="checkbox" class="form-check-input" name="Active"
+                                                [(ngModel)]="ThanhVienService.FormDataLogin.Active" />
+                                            <label class="form-check-label" for="Active">Kích hoạt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gx-4">
+                                    <div class="col-lg-6 col-sm-12 col-12">
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Tài khoản</label>
+                                            <input name="TaiKhoan" [(ngModel)]="ThanhVienService.FormDataLogin.TaiKhoan"
+                                                [disabled]="ThanhVienService.FormDataLogin && ThanhVienService.FormDataLogin.ID>0"
+                                                placeholder="Tài khoản" type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Mật khẩu</label>
+                                            <input name="MatKhau" [(ngModel)]="ThanhVienService.FormDataLogin.MatKhau" placeholder="Mật khẩu"
+                                                type="password" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Họ tên</label>
+                                            <input name="Name" [(ngModel)]="ThanhVienService.FormDataLogin.Name" placeholder="Họ tên" type="text"
+                                                class="form-control">
+                                        </div>                                                         
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Ghi chú</label>
+                                            <input name="Note" [(ngModel)]="ThanhVienService.FormDataLogin.Note" placeholder="Ghi chú" type="text"
+                                                class="form-control">
+                                        </div>                      
+                                    </div>
+                                    <div class="col-lg-6 col-sm-12 col-12">     
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Điện thoại</label>
+                                            <input name="DienThoai" [(ngModel)]="ThanhVienService.FormDataLogin.DienThoai"
+                                                placeholder="Điện thoại" type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Email</label>
+                                            <input name="Email" [(ngModel)]="ThanhVienService.FormDataLogin.Email" placeholder="Email"
+                                                type="text" class="form-control">
+                                        </div>                                   
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Cơ quan quản lý</label>
+                                            <input name="Description" [(ngModel)]="ThanhVienService.FormDataLogin.Description"
+                                                placeholder="Cơ quan quản lý" type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Chức danh</label>
+                                            <input name="Display" [(ngModel)]="ThanhVienService.FormDataLogin.Display" placeholder="Chức danh"
+                                                type="text" class="form-control">
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="ThanhVienService.IsShowLoading"></app-loading>

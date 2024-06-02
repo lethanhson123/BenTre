@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "810687541405",
+    "project_id": "qlclbentre-78cd2",
+    "storage_bucket": "qlclbentre-78cd2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810687541405:android:defc3eaee36d749454e474",
+        "android_client_info": {
+          "package_name": "qlcl.bentre.admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1x_BLUZ2gBqp5wxhKijeJ6-c3njhx_-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

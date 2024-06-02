@@ -1,0 +1,245 @@
+<div class="app-body">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card" style="margin-left: 1px;">
+                <div class="card-body">
+                    <div class="custom-tabs-container">
+                        <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="tab-CompanyInfoLichSuKiemTra" data-bs-toggle="tab"
+                                    href="#CompanyInfoLichSuKiemTra" role="tab" aria-controls="CompanyInfoLichSuKiemTra"
+                                    aria-selected="true">
+                                    <span class="badge bg-info" style="font-size: 16px;">Kiểm tra ATTP</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="customTabContent">
+                            <div class="tab-pane fade show active" id="CompanyInfoLichSuKiemTra" role="tabpanel">
+                                <div class="row gx-4">
+                                    <div class="col-lg-6 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">Đơn vị Tổ chức
+                                        </label>
+                                        <mat-select class="form-control"
+                                            name="CompanyInfoLichSuKiemTraService.BaseParameter.ParentID"
+                                            [(ngModel)]="CompanyInfoLichSuKiemTraService.BaseParameter.ParentID">
+                                            <input placeholder="Tìm..." class="form-control"
+                                                (keyup)="CompanyInfoFilter($event.target.value)">
+                                            <mat-option *ngFor="let item of CompanyInfoService.ListFilter"
+                                                [value]="item.ID">
+                                                {{item.Name}} - {{item.phone}} - {{item.DKKD}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                    <div class="col-lg-5 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                                        <input [(ngModel)]="CompanyInfoLichSuKiemTraService.BaseParameter.SearchString"
+                                            placeholder="Tìm ..." class="form-control"
+                                            (keyup.enter)="CompanyInfoLichSuKiemTraSearch()">
+                                    </div>
+                                    <div class="col-lg-1 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                                        <div>
+                                            <a style="width: 100%;" class="btn btn-success" title="Tìm"
+                                                (click)="CompanyInfoLichSuKiemTraSearch()"><i
+                                                    class="bi bi-search"></i></a>&nbsp;&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mb-4 card-info">
+                                    <div class="card-header">
+                                        <h5 class="card-title text-white">Danh sách
+                                            <span
+                                                *ngIf="CompanyInfoLichSuKiemTraService.List">({{CompanyInfoLichSuKiemTraService.List.length}}
+                                                items)</span>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-outer">
+                                            <div class="table-responsive">
+                                                <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                                    #CompanyInfoLichSuKiemTraSort="matSort"
+                                                    [dataSource]="CompanyInfoLichSuKiemTraService.DataSource"
+                                                    class="table table-striped m-0">
+                                                    <ng-container matColumnDef="STT">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            STT
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element; index as i;"
+                                                            style="text-align: center;">
+                                                            <div *ngIf="CompanyInfoLichSuKiemTraPaginator">
+                                                                {{CompanyInfoLichSuKiemTraPaginator.pageSize *
+                                                                CompanyInfoLichSuKiemTraPaginator.pageIndex + i + 1}}
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="ID">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.ID}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="DanhMucDangKyCapGiayID">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Đăng ký
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <select class="form-select"
+                                                                name="element.DanhMucDangKyCapGiayID"
+                                                                [(ngModel)]="element.DanhMucDangKyCapGiayID">
+                                                                <option
+                                                                    *ngFor="let item of DanhMucDangKyCapGiayService.List;"
+                                                                    [value]="item.ID">
+                                                                    {{item.Code}}</option>
+                                                            </select>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="DanhMucXepLoaiID">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Xếp loại
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <select class="form-select" name="element.DanhMucXepLoaiID"
+                                                                [(ngModel)]="element.DanhMucXepLoaiID">
+                                                                <option *ngFor="let item of DanhMucXepLoaiService.List;"
+                                                                    [value]="item.ID">
+                                                                    {{item.Name}}</option>
+                                                            </select>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="SoLan">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Số lần
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <input class="form-control" type="number" placeholder="0"
+                                                                name="SoLan{{element.ID}}" [(ngModel)]="element.SoLan"
+                                                                style="text-align: right;">
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="NgayGhiNhan">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ghi nhận
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <input name="NgayGhiNhan{{element.ID}}"
+                                                                [ngModel]="element.NgayGhiNhan | date:'yyyy-MM-dd'"
+                                                                (ngModelChange)="DateCompanyInfoLichSuKiemTraNgayGhiNhan(element, $event)"
+                                                                [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                                                class="form-control" autocomplete="off">
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Save">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <a class="btn btn-info"
+                                                                (click)="CompanyInfoLichSuKiemTraSave(element)"><i
+                                                                    class="bi bi-sd-card"></i>
+                                                            </a>&nbsp;&nbsp;&nbsp;
+                                                            <a class="btn btn-danger"
+                                                                (click)="CompanyInfoLichSuKiemTraDelete(element)"
+                                                                *ngIf="element.ID>0"><i class="bi bi-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row
+                                                        *matHeaderRowDef="CompanyInfoLichSuKiemTraService.DisplayColumns001">
+                                                    </tr>
+                                                    <tr mat-row
+                                                        *matRowDef="let row; columns: CompanyInfoLichSuKiemTraService.DisplayColumns001;">
+                                                    </tr>
+                                                </table>
+                                                <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                                    #CompanyInfoLichSuKiemTraPaginator="matPaginator"
+                                                    [pageSizeOptions]="[10,20,50,100]" [pageSize]="6"
+                                                    [showFirstLastButtons]></mat-paginator>
+
+                                                <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                                    #CompanyInfoLichSuKiemTraSort="matSort"
+                                                    [dataSource]="CompanyInfoLichSuKiemTraService.DataSource"
+                                                    class="table table-striped m-0">
+                                                    <ng-container matColumnDef="STT">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Danh sách
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element; index as i;">
+                                                            <div class="row gx-4">
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label class="form-label">Đăng ký</label>
+                                                                    <select class="form-select"
+                                                                        name="element.DanhMucDangKyCapGiayID"
+                                                                        [(ngModel)]="element.DanhMucDangKyCapGiayID">
+                                                                        <option
+                                                                            *ngFor="let item of DanhMucDangKyCapGiayService.List;"
+                                                                            [value]="item.ID">
+                                                                            {{item.Code}}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label class="form-label">Xếp loại</label>
+                                                                    <select class="form-select"
+                                                                        name="element.DanhMucXepLoaiID"
+                                                                        [(ngModel)]="element.DanhMucXepLoaiID">
+                                                                        <option
+                                                                            *ngFor="let item of DanhMucXepLoaiService.List;"
+                                                                            [value]="item.ID">
+                                                                            {{item.Name}}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label class="form-label">Số lần</label>
+                                                                    <input class="form-control" type="number"
+                                                                        placeholder="0" name="SoLan{{element.ID}}"
+                                                                        [(ngModel)]="element.SoLan"
+                                                                        style="text-align: right;">
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label class="form-label">Ghi nhận</label>
+                                                                    <input name="NgayGhiNhan{{element.ID}}"
+                                                                        [ngModel]="element.NgayGhiNhan | date:'yyyy-MM-dd'"
+                                                                        (ngModelChange)="DateCompanyInfoLichSuKiemTraNgayGhiNhan(element, $event)"
+                                                                        [ngModelOptions]="{ updateOn: 'blur' }"
+                                                                        type="date" class="form-control"
+                                                                        autocomplete="off">
+                                                                </div>
+                                                                <div class="row gx-4">
+                                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                                        <a class="btn btn-info" style="width: 100%;"
+                                                                            (click)="CompanyInfoLichSuKiemTraSave(element)"><i
+                                                                                class="bi bi-sd-card"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                                        <a class="btn btn-danger" style="width: 100%;"
+                                                                            (click)="CompanyInfoLichSuKiemTraDelete(element)"
+                                                                            *ngIf="element.ID>0"><i
+                                                                                class="bi bi-trash"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <br />
+                                                                    <br />
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row
+                                                        *matHeaderRowDef="CompanyInfoLichSuKiemTraService.DisplayColumnsMobile">
+                                                    </tr>
+                                                    <tr mat-row
+                                                        *matRowDef="let row; columns: CompanyInfoLichSuKiemTraService.DisplayColumnsMobile;">
+                                                    </tr>
+                                                </table>
+                                                <mat-paginator *ngIf="NotificationService.IsMobile"
+                                                    #CompanyInfoLichSuKiemTraPaginator="matPaginator"
+                                                    [pageSizeOptions]="[10,20,50,100]" [pageSize]="10000"
+                                                    [showFirstLastButtons]></mat-paginator>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="CompanyInfoLichSuKiemTraService.IsShowLoading"></app-loading>

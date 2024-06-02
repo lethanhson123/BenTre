@@ -1,0 +1,216 @@
+<div class="app-body">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card" style="margin-left: 1px;">
+                <div class="card-body">
+                    <div class="custom-tabs-container">
+                        <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="tab-CompanyInfo" data-bs-toggle="tab" href="#CompanyInfo"
+                                    role="tab" aria-controls="CompanyInfo" aria-selected="true">
+                                    <span class="badge bg-info" style="font-size: 16px;">Cơ sở nuôi</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="customTabContent">
+                            <div class="tab-pane fade show active" id="CompanyInfo" role="tabpanel">
+                                <div class="row gx-4">
+                                    <div class="col-lg-2 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">Quận
+                                            huyện</label>
+                                        <select class="form-select"
+                                            name="CompanyInfoService.BaseParameter.DistrictDataID"
+                                            [(ngModel)]="CompanyInfoService.BaseParameter.DistrictDataID"
+                                            (change)="WardDataSearch()">
+                                            <option [value]="0">
+                                                Tất cả</option>
+                                            <option *ngFor="let item of DistrictDataService.List;" [value]="item.ID">
+                                                {{item.Name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">Xã
+                                            phường</label>
+                                        <select class="form-select" name="CompanyInfoService.BaseParameter.WardDataID"
+                                            [(ngModel)]="CompanyInfoService.BaseParameter.WardDataID">
+                                            <option [value]="0">
+                                                Tất cả</option>
+                                            <option *ngFor="let item of WardDataService.List;" [value]="item.ID">
+                                                {{item.Name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">Tình
+                                            trạng</label>
+                                        <select class="form-select"
+                                            name="CompanyInfoService.BaseParameter.DanhMucATTPTinhTrangID"
+                                            [(ngModel)]="CompanyInfoService.BaseParameter.DanhMucATTPTinhTrangID">
+                                            <option [value]="0">
+                                                Tất cả</option>
+                                            <option *ngFor="let item of DanhMucATTPTinhTrangService.List;"
+                                                [value]="item.ID">
+                                                {{item.Name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                                        <input [(ngModel)]="CompanyInfoService.BaseParameter.SearchString"
+                                            placeholder="Tìm ..." class="form-control"
+                                            (keyup.enter)="CompanyInfoSearch()">
+                                    </div>
+                                    <div class="col-lg-2 col-sm-6 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                                        <div class="row gx-4">
+                                            <div class="col-lg-6 col-sm-6 col-6">
+                                                <a style="width: 100%;" class="btn btn-success" title="Tìm"
+                                                    (click)="CompanyInfoSearch()"><i class="bi bi-search"></i></a>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6 col-6">
+                                                <a style="width: 100%;" class="btn btn-success" title="Thêm mới"
+                                                    (click)="PlanThamDinhAdd(0)"><i class="bi bi-plus"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mb-4 card-info">
+                                    <div class="card-header">
+                                        <h5 class="card-title text-white">Danh sách
+                                            <span *ngIf="CompanyInfoService.List">({{CompanyInfoService.List.length}}
+                                                items)</span>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-outer">
+                                            <div class="table-responsive">
+                                                <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                                    #CompanyInfoSort="matSort"
+                                                    [dataSource]="CompanyInfoService.DataSource"
+                                                    class="table table-striped m-0">
+                                                    <ng-container matColumnDef="Save">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <div class="row gx-4">
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <a style="width: 100%;" class="btn btn-success"
+                                                                        (click)="PlanThamDinhAdd(element.ParentID)"
+                                                                        *ngIf="element.ID > 0"><i
+                                                                            class="bi bi-people"></i> Hồ sơ
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <a style="width: 100%;" class="btn btn-success"
+                                                                        (click)="PlanThamDinhCopy(element.ParentID)"
+                                                                        *ngIf="element.ID > 0"><i
+                                                                            class="bi bi-subtract"></i> Copy
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <a style="width: 100%;" class="btn btn-danger"
+                                                                        (click)="PlanThamDinhDelete(element.ParentID)"
+                                                                        *ngIf="element.ID > 0"><i
+                                                                            class="bi bi-trash"></i> Xóa
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="STT">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            STT
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element; index as i;"
+                                                            style="text-align: center;">
+                                                            <div *ngIf="CompanyInfoPaginator">
+                                                                {{CompanyInfoPaginator.pageSize *
+                                                                CompanyInfoPaginator.pageIndex + i + 1}}
+                                                            </div>
+                                                            <br />
+                                                            [{{element.ParentID}}]
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Display">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Xếp loại
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.Display}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="CoSoNuoiMa">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Mã cơ sở
+                                                            nuôi
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.CoSoNuoiMa}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Name">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tiêu đề
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <a style="cursor: pointer;" title="{{element.Name}}"
+                                                                class="link-primary"
+                                                                (click)="CompanyInfoAdd(element.ID)"><b>{{element.Name}}</b></a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="DistrictDataName">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Quận huyện
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.DistrictDataName}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="WardDataName">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Xã phường
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.WardDataName}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row
+                                                        *matHeaderRowDef="CompanyInfoService.DisplayColumns003">
+                                                    </tr>
+                                                    <tr mat-row
+                                                        *matRowDef="let row; columns: CompanyInfoService.DisplayColumns003;">
+                                                    </tr>
+                                                </table>
+                                                <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                                    #CompanyInfoPaginator="matPaginator"
+                                                    [pageSizeOptions]="[10,20,50,100]" [pageSize]="6"
+                                                    [showFirstLastButtons]></mat-paginator>
+
+                                                <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                                    #CompanyInfoSort="matSort"
+                                                    [dataSource]="CompanyInfoService.DataSource"
+                                                    class="table table-striped m-0">
+                                                    <ng-container matColumnDef="STT">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Danh sách
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element; index as i;">
+
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row
+                                                        *matHeaderRowDef="CompanyInfoService.DisplayColumnsMobile">
+                                                    </tr>
+                                                    <tr mat-row
+                                                        *matRowDef="let row; columns: CompanyInfoService.DisplayColumnsMobile;">
+                                                    </tr>
+                                                </table>
+                                                <mat-paginator *ngIf="NotificationService.IsMobile"
+                                                    #CompanyInfoPaginator="matPaginator"
+                                                    [pageSizeOptions]="[10,20,50,100]" [pageSize]="10000"
+                                                    [showFirstLastButtons]></mat-paginator>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="CompanyInfoService.IsShowLoading"></app-loading>

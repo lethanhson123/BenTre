@@ -1,0 +1,135 @@
+<div class="custom-tabs-container">
+    <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-PlanThamDinhDanhMucLayMauDetailChuoiCungUngAnToanThucPhamKeHoachLayMau"
+                data-bs-toggle="tab" href="#PlanThamDinhDanhMucLayMauDetailChuoiCungUngAnToanThucPhamKeHoachLayMau"
+                role="tab" aria-controls="PlanThamDinhDanhMucLayMauDetailChuoiCungUngAnToanThucPhamKeHoachLayMau"
+                aria-selected="true">
+                <span class="badge bg-info" style="font-size: 16px;">Chuỗi cung ứng An toàn thực phẩm - Kế hoạch lấy mẫu</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a style="cursor: pointer;" class="nav-link" id="tab-Close" data-bs-toggle="tab" (click)="Close()"
+                role="tab" aria-controls="Close" aria-selected="false">
+                <span class="badge bg-danger" style="font-size: 16px;"><i class="bi bi-x-lg"></i></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="customTabContent">
+        <div class="tab-pane fade show active" id="PlanThamDinhDanhMucLayMauDetailChuoiCungUngAnToanThucPhamKeHoachLayMau"
+            role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="row gx-4">
+                        <div class="col-lg-4 col-sm-12 col-12">
+                            <a style="width: 100%;" title="Lưu thay đổi" (click)="PlanThamDinhDanhMucLayMauSave()"
+                                class="btn btn-info"><i class="bi bi-sd-card"></i> Lưu thay
+                                đổi</a>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 col-12">
+                            <a style="width: 100%;" title="Lưu thay đổi" (click)="CompanyInfoAdd()"
+                                class="btn btn-success"><i class="bi bi-plus"></i> Thêm Đơn vị Tổ chức (nếu
+                                thiếu)</a>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-check form-check-inline mb-6">
+                                <input type="checkbox" class="form-check-input" name="Active"
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.Active" />
+                                <label class="form-check-label" for="Active">Mẫu nhiễm</label>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="row gx-4">
+                        <div class="col-lg-6 col-sm-12 col-12">                           
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Mã mẫu</label>
+                                <input class="form-control" type="text" placeholder="Mã mẫu"
+                                    name="PlanThamDinhDanhMucLayMauService.FormData.TypeName"
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.TypeName"/>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Khối lượng (kg)</label>
+                                <input class="form-control" type="number" placeholder="0"
+                                    name="PlanThamDinhDanhMucLayMauService.FormData.SoLuongLayMau"
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.SoLuongLayMau"
+                                    style="text-align: right" />
+                            </div>                            
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Giới hạn tối đa</label>
+                                <input class="form-control" type="text" placeholder="Giới hạn tối đa"
+                                    name="PlanThamDinhDanhMucLayMauService.FormData.GioiHanToiDa"
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.GioiHanToiDa"/>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Kết quả phân tích</label>
+                                <input class="form-control" type="number" placeholder="0"
+                                    name="PlanThamDinhDanhMucLayMauService.FormData.KetQuaPhanTich"
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.KetQuaPhanTich"
+                                    style="text-align: right" />
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Đơn vị tính</label>
+                                <input class="form-control" type="text" placeholder="Đơn vị tính"
+                                    name="PlanThamDinhDanhMucLayMauService.FormData.Note"
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.Note"/>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <div class="form-check form-check-inline mb-6">
+                                    <input type="checkbox" class="form-check-input" name="IsGoiY"
+                                        [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.IsGoiY" />
+                                    <label class="form-check-label" for="IsGoiY">Gợi ý</label>
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Khu vực</label>
+                                <input name="DistrictDataName" disabled
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.DistrictDataName"
+                                    placeholder="Khu vực" type="text" class="form-control">
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Mẫu xét nghiệm</label>
+                                <input name="DanhMucLayMauName" disabled
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.DanhMucLayMauName"
+                                    placeholder="Mẫu xét nghiệm" type="text" class="form-control">
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Chỉ tiêu</label>
+                                <input name="DanhMucLayMauChiTieuName" disabled
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.DanhMucLayMauChiTieuName"
+                                    placeholder="Chỉ tiêu" type="text" class="form-control">
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Mặt hàng</label>
+                                <input class="form-control" type="text" placeholder="Mặt hàng"
+                                    name="PlanThamDinhDanhMucLayMauService.FormData.Name"
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.Name"/>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Đơn vị Tổ chức</label>
+                                <mat-select class="form-control"
+                                    name="PlanThamDinhDanhMucLayMauService.FormData.CompanyInfoID"
+                                    [(ngModel)]="PlanThamDinhDanhMucLayMauService.FormData.CompanyInfoID">
+                                    <input placeholder="Tìm..." class="form-control"
+                                        (keyup)="CompanyInfoFilter($event.target.value)">
+                                    <mat-option *ngFor="let item of CompanyInfoService.ListFilter" [value]="item.ID">
+                                        {{item.Name}} - {{item.address}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Ngày ghi nhận</label>
+                                <input
+                                    [ngModel]="PlanThamDinhDanhMucLayMauService.FormData.NgayGhiNhan | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="DateNgayGhiNhan($event)" [ngModelOptions]="{ updateOn: 'blur' }"
+                                    type="date" class="form-control" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="PlanThamDinhDanhMucLayMauService.IsShowLoading"></app-loading>

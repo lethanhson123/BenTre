@@ -1,0 +1,116 @@
+﻿﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>
+        [PageTitle]
+    </title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Times New Roman';
+            
+        }
+
+        .border, .border td, .border th {
+            border-color: #000000;
+            border-style: solid;
+            border-width: 1px;
+            padding: 5px;
+        }
+
+            .border th {
+                font-weight: bold;
+            }
+
+        .border {
+            border-collapse: collapse;
+            width: 100%;
+        }
+    </style>
+    <div id="Body" style="width: 100%; background-color: #808080; margin-top: -30px; ">
+        <div id="BodyContent" style="width: 80%; height: auto; min-height: 1530px; margin: auto; letter-spacing: 1px; border: 0px solid #000000; background-color: #ffffff; padding: 10px; ">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 50%; text-align: center;">
+                        <div style="font-size: 14px; text-align: center;">
+                            [StateAgencyParentName]
+                        </div>
+                        <div style="font-size: 14px; text-align: center;">
+                            [StateAgencyName]
+                        </div>
+                        *****************************
+                    </td>
+                    <td style="width: 50%; text-align: center;">
+                        <div style="font-size: 14px; text-align: center; text-transform: uppercase;">
+                            <a href='javascript:window.print();' title="In biểu mẫu" style="text-decoration: none;">Cộng hòa xã hội chủ nghĩa Việt nam</a>
+                        </div>
+                        <div style="font-size: 14px; text-align: center;">
+                            Độc lập - Tự do - Hạnh phúc
+                        </div>
+                        *****************************
+                    </td>
+                </tr>
+            </table>
+            <div id="Main" style="justify-content: center; align-items: center; font-size: 14px; padding: 10px; ">
+                <h1 style="text-align: center;">Kết quả</h1>
+                <h1 style="text-align: center;">Về việc Thẩm định An toàn thực phẩm</h1>
+                <table style="line-height: 30px;">
+                    <tr>
+                        <td>
+                            Đơn vị Tổ chức:
+                        </td>
+                        <td>
+                            <b>[CompanyInfoName]</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Đăng ký kinh doanh:
+                        </td>
+                        <td>
+                            <b>[CompanyInfoDKKD]</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Địa chỉ:
+                        </td>
+                        <td>
+                            <b>[CompanyInfoAddress]</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Điện thoại:
+                        </td>
+                        <td>
+                            <b>[CompanyInfoPhone]</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ngày thẩm định:
+                        </td>
+                        <td>
+                            <b>[NgayGhiNhan]</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Xếp loại:
+                        </td>
+                        <td>
+                            <b>[DanhMucATTPXepLoaiName]</b>
+                        </td>
+                    </tr>
+                    [ListPlanThamDinhCompanyDocument]
+                </table>
+                <h3><i>Email này thay cho thông báo của cơ quan quản lý gửi đến Đơn vị Tổ chức liên quan</i></h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

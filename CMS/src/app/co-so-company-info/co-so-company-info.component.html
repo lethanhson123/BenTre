@@ -1,0 +1,246 @@
+<div class="app-body">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card" style="margin-left: 1px;">
+                <div class="card-body">
+                    <div class="custom-tabs-container">
+                        <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="tab-CompanyInfoDetail" data-bs-toggle="tab" href="#CompanyInfoDetail"
+                                    role="tab" aria-controls="CompanyInfoDetail" aria-selected="true">
+                                    <span class="badge bg-info" style="font-size: 16px;">Thông tin cơ bản</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="customTabContent">
+                            <div class="tab-pane fade show active" id="CompanyInfoDetail" role="tabpanel">
+                                <div class="row gx-4">
+                                    <div class="col-lg-4 col-sm-12 col-12">
+                                        <a style="width: 100%;" title="Lưu thay đổi" (click)="CompanyInfoSave()" class="btn btn-info"><i
+                                                class="bi bi-sd-card"></i> Lưu thay đổi</a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-12 col-12">
+                                        <div class="form-check form-check-inline mb-6">
+                                            <input type="checkbox" class="form-check-input" name="Active"
+                                                [(ngModel)]="CompanyInfoService.FormData.Active" disabled />
+                                            <label class="form-check-label" for="Active">Kích hoạt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gx-4">
+                                    <div class="col-lg-4 col-sm-12 col-12">
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Tiêu đề [{{CompanyInfoService.FormData.ID}}]</label>
+                                            <input name="Name" [(ngModel)]="CompanyInfoService.FormData.Name" placeholder="Tiêu đề"
+                                                type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Đại diện pháp luật</label>
+                                            <input name="fullname" [(ngModel)]="CompanyInfoService.FormData.fullname"
+                                                placeholder="Đại diện pháp luật" type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Chức danh</label>
+                                            <input name="role_name" [(ngModel)]="CompanyInfoService.FormData.role_name"
+                                                placeholder="Chức danh" type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Định danh cá nhân</label>
+                                            <input name="identity_card" [(ngModel)]="CompanyInfoService.FormData.identity_card"
+                                                placeholder="Định danh cá nhân" type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Điện thoại</label>
+                                            <input name="phone" [(ngModel)]="CompanyInfoService.FormData.phone" placeholder="Điện thoại"
+                                                type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Email</label>
+                                            <input name="email" [(ngModel)]="CompanyInfoService.FormData.email" placeholder="Email"
+                                                type="email" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Nơi cấp ĐKKD</label>
+                                            <input name="business_number_place"
+                                                [(ngModel)]="CompanyInfoService.FormData.business_number_place" placeholder="Nơi cấp ĐKKD"
+                                                type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Số DKKD</label>
+                                            <input name="DKKD" [(ngModel)]="CompanyInfoService.FormData.DKKD" placeholder="Số DKKD"
+                                                type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Số cấp</label>
+                                            <input name="DKKDSoCap" [(ngModel)]="CompanyInfoService.FormData.DKKDSoCap" placeholder="Số cấp"
+                                                type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Ngày cấp</label>
+                                            <input [ngModel]="CompanyInfoService.FormData.DKKDNgayCap | date:'yyyy-MM-dd'"
+                                                (ngModelChange)="DateDKKDNgayCap($event)" [ngModelOptions]="{ updateOn: 'blur' }"
+                                                type="date" class="form-control" autocomplete="off">
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="col-lg-4 col-sm-12 col-12">
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Quận huyện</label>
+                                            <select class="form-select" name="DistrictDataID"
+                                                [(ngModel)]="CompanyInfoService.FormData.DistrictDataID" (change)="WardDataSearch()">
+                                                <option *ngFor="let item of DistrictDataService.List;" [value]="item.ID">
+                                                    {{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Xã phường</label>
+                                            <select class="form-select" name="WardDataID"
+                                                [(ngModel)]="CompanyInfoService.FormData.WardDataID">
+                                                <option *ngFor="let item of WardDataService.List;" [value]="item.ID">
+                                                    {{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Ấp thôn</label>
+                                            <input name="hamlet" [(ngModel)]="CompanyInfoService.FormData.hamlet" placeholder="Ấp thôn"
+                                                type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Địa chỉ</label>
+                                            <input name="address" [(ngModel)]="CompanyInfoService.FormData.address" placeholder="Địa chỉ"
+                                                type="text" class="form-control">
+                                        </div>                 
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Công suất thiết kế (tấn/tháng)</label>
+                                            <input name="CongSuatThietKe" [(ngModel)]="CompanyInfoService.FormData.CongSuatThietKe"
+                                                placeholder="Công suất thiết kế (tấn/tháng)" type="number" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Sản lượng (tấn/tháng)</label>
+                                            <input name="SanLuong" [(ngModel)]="CompanyInfoService.FormData.SanLuong"
+                                                placeholder="Sản lượng (tấn/tháng)" type="number" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Tổng diện tích (ha)</label>
+                                            <input name="DienTich" [(ngModel)]="CompanyInfoService.FormData.DienTich"
+                                                placeholder="0" type="number" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Diện tích nuôi trồng thủy sản (ha)</label>
+                                            <input name="CoSoNuoiDienTichNuoiTrong" [(ngModel)]="CompanyInfoService.FormData.CoSoNuoiDienTichNuoiTrong"
+                                                placeholder="0" type="number" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Tổng số ao nuôi</label>
+                                            <input name="CoSoNuoiSoLuongAo" [(ngModel)]="CompanyInfoService.FormData.CoSoNuoiSoLuongAo"
+                                                placeholder="0" type="number" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Lao động (người)</label>
+                                            <input name="SoLuongLaoDong" [(ngModel)]="CompanyInfoService.FormData.SoLuongLaoDong"
+                                                placeholder="Lao động (người)" type="number" class="form-control">
+                                        </div>                                       
+                                        
+                                    </div>
+                                    <div class="col-lg-4 col-sm-12 col-12">
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Quy mô</label>
+                                            <select class="form-select" name="CompanyScopeID"
+                                                [(ngModel)]="CompanyInfoService.FormData.CompanyScopeID">
+                                                <option *ngFor="let item of CompanyScopeService.List;" [value]="item.ID">
+                                                    {{item.Code}} - {{item.Name}}</option>
+                                            </select>
+                                        </div>                                      
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Thị trường tiêu thụ</label>
+                                            <select class="form-select" name="DanhMucThiTruongID"
+                                                [(ngModel)]="CompanyInfoService.FormData.DanhMucThiTruongID">
+                                                <option *ngFor="let item of DanhMucThiTruongService.List;" [value]="item.ID">
+                                                    {{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Chương trình QLCL</label>
+                                            <select class="form-select" name="DanhMucChuongTrinhQuanLyChatLuongID"
+                                                [(ngModel)]="CompanyInfoService.FormData.DanhMucChuongTrinhQuanLyChatLuongID">
+                                                <option *ngFor="let item of DanhMucChuongTrinhQuanLyChatLuongService.List;"
+                                                    [value]="item.ID">
+                                                    {{item.Code}} - {{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Tình trạng</label>
+                                            <select class="form-select" name="DanhMucCompanyTinhTrangID"
+                                                [(ngModel)]="CompanyInfoService.FormData.DanhMucCompanyTinhTrangID">
+                                                <option *ngFor="let item of DanhMucCompanyTinhTrangService.List;" [value]="item.ID">
+                                                    {{item.Code}} - {{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Trạng thái</label>
+                                            <select class="form-select" name="DanhMucCompanyTrangThaiID"
+                                                [(ngModel)]="CompanyInfoService.FormData.DanhMucCompanyTrangThaiID">
+                                                <option *ngFor="let item of DanhMucCompanyTrangThaiService.List;" [value]="item.ID">
+                                                    {{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Hình thức nuôi</label>
+                                            <select class="form-select" name="DanhMucHinhThucNuoiID"
+                                                [(ngModel)]="CompanyInfoService.FormData.DanhMucHinhThucNuoiID">
+                                                <option *ngFor="let item of DanhMucHinhThucNuoiService.List;" [value]="item.ID">
+                                                    {{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                        <!-- <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Người duyệt</label>
+                                            <input name="DuyetTaiKhoanThanhVienName"
+                                                [(ngModel)]="CompanyInfoService.FormData.DuyetTaiKhoanThanhVienName"
+                                                placeholder="Người duyệt" type="text" class="form-control" disabled>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Ngày duyệt</label>
+                                            <input [ngModel]="CompanyInfoService.FormData.DuyetTaiKhoanNgayGhiNhan | date:'yyyy-MM-dd'"
+                                                (ngModelChange)="DateDuyetTaiKhoanNgayGhiNhan($event)"
+                                                [ngModelOptions]="{ updateOn: 'blur' }" type="date" class="form-control" autocomplete="off"
+                                                disabled>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Đăng ký</label>
+                                            <input [ngModel]="CompanyInfoService.FormData.NgayDangKy | date:'yyyy-MM-dd'"
+                                                (ngModelChange)="DateNgayDangKy($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                                class="form-control" autocomplete="off">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Hết hạn</label>
+                                            <input [ngModel]="CompanyInfoService.FormData.NgayHetHan | date:'yyyy-MM-dd'"
+                                                (ngModelChange)="DateNgayHetHan($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                                class="form-control" autocomplete="off">
+                                        </div> -->
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">MS</label>
+                                            <input name="MS" [(ngModel)]="CompanyInfoService.FormData.MS" placeholder="MS" type="number"
+                                                class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Ghi chú</label>
+                                            <input name="Note" [(ngModel)]="CompanyInfoService.FormData.Note" placeholder="Ghi chú"
+                                                type="text" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Ghi chú khác</label>
+                                            <input name="Description" [(ngModel)]="CompanyInfoService.FormData.Description"
+                                                placeholder="Ghi chú khác" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-loading *ngIf="CompanyInfoService.IsShowLoading"></app-loading>

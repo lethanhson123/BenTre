@@ -1,0 +1,144 @@
+@media only screen and (max-width: 1600px) {
+    #title-bg {
+        font-size: 16px;
+        text-align: justify;
+    }
+
+}
+
+@media only screen and (max-width: 1880px) {
+    .active-bg {
+        display: block;
+    }
+
+}
+
+@media only screen and (max-width: 950px) {
+    .desc-detail {
+        font-size: 18px;
+    }
+
+}
+
+@media only screen and (max-width: 820px) {
+    .desc-detail {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .desc-detail {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .main-footer {
+        padding: 0px;
+    }
+
+    .contain-img {
+        text-align: center;
+    }
+
+    .main-footer {
+        padding: 0px;
+    }
+
+    .container-nav {
+        display: block;
+        padding: 20px 0
+    }
+
+    .content-img-detail {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .desc-detail {
+        text-align: justify;
+    }
+
+    .desc-detail {
+        font-size: 17px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .main-footer {
+        padding: 0px;
+    }
+
+    .title-footer {
+        line-height: 30px;
+    }
+
+    .contain-img {
+        text-align: center;
+    }
+
+    .main-footer {
+        padding: 0px;
+    }
+
+    .desc-detail {
+        font-size: 17px;
+    }
+
+    .title-main-info-popular {
+        font-size: 16px;
+    }
+
+    #Dgk {
+        font-size: 11px;
+    }
+
+    #container-footer {
+        padding-top: 10px;
+        /* position: absolute;
+        bottom: 0; */
+    }
+
+    .main-footer li {
+        font-size: 14px;
+    }
+
+    #container-main {
+        min-height: 200px;
+    }
+
+    #title-popular-detail {
+        font-size: 13px;
+    }
+    #img-detail{
+        width: 30%;
+    }
+
+}
+
+@media only screen and (max-width: 360px) {
+    .desc-detail {
+        font-size: 12px;
+    }
+
+    .title-main-info-popular {
+        font-size: 14px;
+    }
+
+    .title-main {
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    #Dgk {
+        font-size: 11px;
+    }
+
+    .header-top {
+        padding-top: 5px;
+    }
+
+    #title-popular-detail {
+        font-size: 13px;
+    }
+}

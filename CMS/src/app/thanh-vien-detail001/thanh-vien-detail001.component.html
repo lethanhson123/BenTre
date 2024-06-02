@@ -1,0 +1,100 @@
+<div class="custom-tabs-container">
+    <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-ThanhVienDetail" data-bs-toggle="tab" href="#ThanhVienDetail" role="tab"
+                aria-controls="ThanhVienDetail" aria-selected="true">
+                <span class="badge bg-info" style="font-size: 16px;">Thông tin</span>
+            </a>
+        </li>       
+        <li class="nav-item" role="presentation">
+            <a style="cursor: pointer;" class="nav-link" id="tab-Close" data-bs-toggle="tab" (click)="Close()"
+                role="tab" aria-controls="Close" aria-selected="false">
+                <span class="badge bg-danger" style="font-size: 16px;"><i class="bi bi-x-lg"></i></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="customTabContent">
+        <div class="tab-pane fade show active" id="ThanhVienDetail" role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <a style="width: 100%;" title="Lưu thay đổi" (click)="ThanhVienSave()" class="btn btn-info"><i
+                            class="bi bi-sd-card"></i> Lưu thay đổi</a>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="form-check form-check-inline mb-6">
+                        <input type="checkbox" class="form-check-input" name="Active"
+                            [(ngModel)]="ThanhVienService.FormData.Active" />
+                        <label class="form-check-label" for="Active">Kích hoạt</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-4">
+                <div class="col-lg-6 col-sm-12 col-12">                   
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Họ tên</label>
+                        <input name="Name" [(ngModel)]="ThanhVienService.FormData.Name" placeholder="Họ tên" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">CCCD</label>
+                        <input name="CCCD" [(ngModel)]="ThanhVienService.FormData.CCCD"
+                            placeholder="CCCD" type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Điện thoại</label>
+                        <input name="DienThoai" [(ngModel)]="ThanhVienService.FormData.DienThoai"
+                            placeholder="Điện thoại" type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Email</label>
+                        <input name="Email" [(ngModel)]="ThanhVienService.FormData.Email" placeholder="Email"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Ghi chú</label>
+                        <input name="Note" [(ngModel)]="ThanhVienService.FormData.Note" placeholder="Ghi chú"
+                            type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">                    
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Cơ quan quản lý</label>
+                        <select class="form-select" name="StateAgencyID"
+                            [(ngModel)]="ThanhVienService.FormData.StateAgencyID">
+                            <option *ngFor="let item of StateAgencyService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Phòng ban</label>
+                        <select class="form-select" name="AgencyDepartmentID"
+                            [(ngModel)]="ThanhVienService.FormData.AgencyDepartmentID">
+                            <option *ngFor="let item of AgencyDepartmentService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Chức danh</label>
+                        <select class="form-select" name="DanhMucChucDanhID"
+                            [(ngModel)]="ThanhVienService.FormData.DanhMucChucDanhID">
+                            <option *ngFor="let item of DanhMucChucDanhService.List;" [value]="item.ID">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Đơn vị Tổ chức</label>
+                        <mat-select class="form-control" name="ThanhVienService.FormData.CompanyInfoID"
+                            [(ngModel)]="ThanhVienService.FormData.CompanyInfoID">
+                            <input placeholder="Tìm..." class="form-control"
+                                (keyup)="CompanyInfoFilter($event.target.value)">
+                            <mat-option *ngFor="let item of CompanyInfoService.ListFilter" [value]="item.ID">
+                                {{item.Name}} - {{item.phone}} - {{item.DKKD}}
+                            </mat-option>
+                        </mat-select>
+                    </div>                
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<app-loading *ngIf="ThanhVienService.IsShowLoading"></app-loading>

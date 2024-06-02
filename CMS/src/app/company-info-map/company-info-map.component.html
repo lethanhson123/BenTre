@@ -1,0 +1,66 @@
+<div class="app-body">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card" style="margin-left: 1px;">
+                <div class="card-body">
+                    <div class="custom-tabs-container">
+                        <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="tab-CompanyInfoStateAgency" data-bs-toggle="tab"
+                                    href="#CompanyInfoStateAgency" role="tab" aria-controls="CompanyInfoStateAgency"
+                                    aria-selected="true">
+                                    <span class="badge bg-info" style="font-size: 16px;">Bản đồ</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="customTabContent">
+                            <div class="tab-pane fade show active" id="CompanyInfoStateAgency" role="tabpanel">
+                                <div class="row gx-4">
+                                    <div class="col-lg-6 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">Đơn vị Tổ chức
+                                        </label>
+                                        <mat-select class="form-control"
+                                            name="CompanyInfoService.BaseParameter.ID"
+                                            [(ngModel)]="CompanyInfoService.BaseParameter.ID">
+                                            <input placeholder="Tìm..." class="form-control"
+                                                (keyup)="CompanyInfoFilter($event.target.value)">
+                                            <mat-option *ngFor="let item of CompanyInfoService.ListFilter"
+                                                [value]="item.ID">
+                                                {{item.Name}} - {{item.phone}} - {{item.DKKD}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                    <div class="col-lg-5 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                                        <input [(ngModel)]="CompanyInfoService.BaseParameter.SearchString" placeholder="Tìm ..."
+                                            class="form-control" (keyup.enter)="MapLoad()">
+                                    </div>
+                                    <div class="col-lg-1 col-sm-12 col-12">
+                                        <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                                        <div>
+                                            <a style="width: 100%;" class="btn btn-success" title="Bản đồ"
+                                                (click)="MapLoad()"><i
+                                                    class="bi bi-pin-map"></i> Bản đồ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mb-4 card-info">
+                                    <div class="map" #map style="height: 600px; width: 100%;">
+                                        <div style="z-index: 1000; position: absolute; top: 0;">
+                                            <img src="{{domainURL}}assets/image/vungtrong.png" />
+                                        </div>
+                                        <div
+                                            style="z-index: 1000; position: absolute; bottom: 0; width: 100%; height: 20px; background-color: #ffffff;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-loading *ngIf="CompanyInfoService.IsShowLoading"></app-loading>

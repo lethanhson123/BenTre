@@ -1,0 +1,231 @@
+<div class="app-body">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card" style="margin-left: 1px;">
+                <div class="card-body">
+                    <div class="custom-tabs-container">
+                        <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="tab-ProductInfo" data-bs-toggle="tab" href="#ProductInfo"
+                                    role="tab" aria-controls="ProductInfo" aria-selected="false">
+                                    <span class="badge bg-info" style="font-size: 16px;">Sản phẩm</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="customTabContent">
+                            <div class="tab-pane fade show active" id="ProductInfo" role="tabpanel">
+                                <div class="row gx-4">
+                                    <div class="col-lg-10 col-sm-12 col-12">
+                                        <input [(ngModel)]="ProductInfoService.BaseParameter.SearchString" placeholder="Tìm ..."
+                                            class="form-control" (keyup.enter)="ProductInfoSearch()">
+                                    </div>                                    
+                                    <div class="col-lg-2 col-sm-6 col-12">
+                                        <div class="row gx-4">
+                                            <div class="col-lg-6 col-sm-6 col-6">
+                                                <a style="width: 100%;" class="btn btn-success" title="Tìm"
+                                                    (click)="ProductInfoSearch()"><i class="bi bi-search"></i></a>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6 col-6">
+                                                <a style="width: 100%;" class="btn btn-success" title="Thêm mới"
+                                                    (click)="ProductInfoAdd(0)"><i class="bi bi-plus"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mb-4 card-info">
+                                    <div class="card-header">
+                                        <h5 class="card-title text-white">Danh sách
+                                            <span *ngIf="ProductInfoService.List">({{ProductInfoService.List.length}}
+                                                items)</span>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-outer">
+                                            <div class="table-responsive">
+                                                <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                                    #ProductInfoSort="matSort"
+                                                    [dataSource]="ProductInfoService.DataSource"
+                                                    class="table table-striped m-0">
+                                                    <ng-container matColumnDef="STT">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            STT
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element; index as i;"
+                                                            style="text-align: center;">
+                                                            <div *ngIf="ProductInfoPaginator">
+                                                                {{ProductInfoPaginator.pageSize *
+                                                                ProductInfoPaginator.pageIndex + i + 1}}
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="ID">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            ID
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{ element.ID }}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Code">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Code
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{ element.Code }}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Name">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Tiêu đề
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <a style="cursor: pointer" title="{{ element.Name }}"
+                                                                class="link-primary"
+                                                                (click)="ProductInfoAdd(element.ID)"><b>{{ element.Name
+                                                                    }}</b></a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="congbo_date">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Công bố
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{ element.congbo_date | date : "dd/MM/yyyy" }}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="price_min">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Giá thấp nhất
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{ element.price_min | number: "1.0-0" }}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="price_max">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Giá cao nhất
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{ element.price_max | number: "1.0-0" }}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="DanhMucATTPXepLoaiName">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                          Trạng thái
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                          {{ element.DanhMucATTPXepLoaiName }}
+                                                        </td>
+                                                      </ng-container>
+                                                    <ng-container matColumnDef="Save">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <!--
+                                                            <a class="btn btn-danger"
+                                                                (click)="ProductInfoDelete(element)"
+                                                                *ngIf="element.ID > 0"><i class="bi bi-trash"></i>
+                                                            </a>&nbsp;&nbsp;&nbsp;
+                                                            -->
+                                                            <a *ngIf="element.FileName" class="btn btn-success"
+                                                                title="File công bố" href="{{element.FileName}}"
+                                                                target="_blank"><i class="bi bi-cloud-download"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row
+                                                        *matHeaderRowDef="ProductInfoService.DisplayColumns001">
+                                                    </tr>
+                                                    <tr mat-row
+                                                        *matRowDef="let row; columns: ProductInfoService.DisplayColumns001;">
+                                                    </tr>
+                                                </table>
+
+                                                <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                                    #ProductInfoSort="matSort"
+                                                    [dataSource]="ProductInfoService.DataSource"
+                                                    class="table table-striped m-0">
+                                                    <ng-container matColumnDef="STT">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Danh sách
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element; index as i">
+                                                            <div class="row gx-4">
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label>Tiêu đề: </label>
+                                                                    <a style="cursor: pointer"
+                                                                        title="{{ element.Name }}"
+                                                                        class="link-primary form-label"
+                                                                        (click)="ProductInfoAdd(element.ID)"><b>{{
+                                                                            element.Name
+                                                                            }}</b></a>
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label>Code: </label>
+                                                                    <label class="form-label">{{element.Code}}</label>                                                                    
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label>Công bố: </label>
+                                                                    <label class="form-label">{{ element.congbo_date | date : "dd/MM/yyyy" }}</label>                                                                    
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label>Giá thấp nhất: </label>
+                                                                    <label class="form-label">{{ element.price_min | number: "1.0-0" }}</label>                                                                    
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label>Giá cao nhất: </label>
+                                                                    <label class="form-label">{{ element.price_max | number: "1.0-0" }}</label>                                                                    
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label>Trạng thái</label>
+                                                                    <label class="form-label">{{ element.DanhMucATTPXepLoaiName }}</label>
+                                                                </div>
+                                                                <div class="row gx-4">
+                                                                    <!--
+                                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                                        <a class="btn btn-danger" style="width: 100%"
+                                                                            (click)="ProductInfoDelete(element)"
+                                                                            *ngIf="element.ID > 0"><i
+                                                                                class="bi bi-trash"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    -->
+                                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                                        <a style="width: 100%" *ngIf="element.FileName"
+                                                                            class="btn btn-success" title="File công bố"
+                                                                            href="{{element.FileName}}"
+                                                                            target="_blank"><i
+                                                                                class="bi bi-cloud-download"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <br />
+                                                                    <br />
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="
+                                                        ProductInfoService.DisplayColumnsMobile
+                                                      "></tr>
+                                                    <tr mat-row *matRowDef="
+                                                        let row;
+                                                        columns: ProductInfoService.DisplayColumnsMobile
+                                                      "></tr>
+                                                </table>
+                                                <mat-paginator *ngIf="NotificationService.IsMobile"
+                                                    #ProductInfoPaginator="matPaginator"
+                                                    [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="10000"
+                                                    [showFirstLastButtons]></mat-paginator>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-loading *ngIf="ProductInfoService.IsShowLoading"></app-loading>

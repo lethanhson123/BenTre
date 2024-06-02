@@ -1,0 +1,110 @@
+<div class="custom-tabs-container">
+    <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-PlanThamDinhCompaniesDetailGiamSatDuLuong" data-bs-toggle="tab"
+                href="#PlanThamDinhCompaniesDetailGiamSatDuLuong" role="tab"
+                aria-controls="PlanThamDinhCompaniesDetailGiamSatDuLuong" aria-selected="true">
+                <span class="badge bg-info" style="font-size: 16px;">An toàn thực phẩm sau thu
+                    hoạch</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a style="cursor: pointer;" class="nav-link" id="tab-Close" data-bs-toggle="tab" (click)="Close()"
+                role="tab" aria-controls="Close" aria-selected="false">
+                <span class="badge bg-danger" style="font-size: 16px;"><i class="bi bi-x-lg"></i></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="customTabContent">
+        <div class="tab-pane fade show active" id="PlanThamDinhCompaniesDetailGiamSatDuLuong" role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="row gx-4">
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <a style="width: 100%;" title="Lưu thay đổi" (click)="PlanThamDinhCompaniesSave()"
+                                    class="btn btn-info"><i class="bi bi-sd-card"></i> Lưu thay
+                                    đổi</a>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Quận huyện</label>
+                                <select class="form-select" name="PlanThamDinhCompaniesService.FormData.DistrictDataID" (change)="CompanyInfoSearch()"
+                                    [(ngModel)]="PlanThamDinhCompaniesService.FormData.DistrictDataID">
+                                    <option *ngFor="let item of PlanThamDinhDistrictDataService.List;" [value]="item.DistrictDataID">
+                                        {{item.DistrictDataName}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Đơn vị Tổ chức</label>
+                                <mat-select class="form-control"
+                                    name="PlanThamDinhCompaniesService.FormData.CompanyInfoID"
+                                    [(ngModel)]="PlanThamDinhCompaniesService.FormData.CompanyInfoID">
+                                    <input placeholder="Tìm..." class="form-control"
+                                        (keyup)="CompanyInfoFilter($event.target.value)">
+                                    <mat-option *ngFor="let item of CompanyInfoService.ListFilter" [value]="item.ID">
+                                        {{item.Name}} - {{item.address}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Mẫu xét nghiệm</label>
+                                <select class="form-select" name="PlanThamDinhCompaniesService.FormData.DanhMucLayMauID"
+                                    [(ngModel)]="PlanThamDinhCompaniesService.FormData.DanhMucLayMauID">
+                                    <option *ngFor="let item of DanhMucLayMauService.List;" [value]="item.ID">
+                                        {{item.Name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Chỉ tiêu</label>
+                                <select class="form-select"
+                                    name="PlanThamDinhCompaniesService.FormData.DanhMucLayMauChiTieuID"
+                                    [(ngModel)]="PlanThamDinhCompaniesService.FormData.DanhMucLayMauChiTieuID">
+                                    <option *ngFor="let item of DanhMucLayMauChiTieuService.List;" [value]="item.ID">
+                                        {{item.Name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Khối lượng (kg)</label>
+                                <input class="form-control" type="number" placeholder="0"
+                                    name="PlanThamDinhCompaniesService.FormData.SoLuongLayMau"
+                                    [(ngModel)]="PlanThamDinhCompaniesService.FormData.SoLuongLayMau"
+                                    style="text-align: right" />
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Kết quả</label>
+                                <select class="form-select"
+                                    name="PlanThamDinhCompaniesService.FormData.DanhMucATTPXepLoaiID"
+                                    [(ngModel)]="PlanThamDinhCompaniesService.FormData.DanhMucATTPXepLoaiID">
+                                    <option *ngFor="let item of DanhMucATTPXepLoaiService.List;" [value]="item.ID">
+                                        {{item.Name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <label class="form-label">Ngày lấy mẫu</label>
+                                <input [ngModel]="PlanThamDinhCompaniesService.FormData.NgayGhiNhan | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="DateNgayGhiNhan($event)" [ngModelOptions]="{ updateOn: 'blur' }"
+                                    type="date" class="form-control" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <a style="width: 100%;" title="Lưu thay đổi" (click)="CompanyInfoAdd(0)"
+                                    class="btn btn-success"><i class="bi bi-plus"></i> Thêm Đơn vị Tổ chức(Nếu thiếu)</a>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <a style="width: 100%;" title="Lưu thay đổi" (click)="DanhMucLayMauAdd(0)"
+                                    class="btn btn-success"><i class="bi bi-plus"></i> Thêm Mẫu xét nghiệm (Nếu
+                                    thiếu)</a>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                <a style="width: 100%;" title="Lưu thay đổi" (click)="DanhMucLayMauChiTieuAdd(0)"
+                                    class="btn btn-success"><i class="bi bi-plus"></i> Thêm Chỉ tiêu (Nếu thiếu)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="PlanThamDinhCompaniesService.IsShowLoading"></app-loading>

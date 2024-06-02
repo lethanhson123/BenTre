@@ -1,0 +1,184 @@
+<div class="app-body">
+  <div class="row">
+    <div class="col-xxl-12">
+      <div class="card" style="margin-left: 1px">
+        <div class="card-body">
+          <div class="custom-tabs-container">
+            <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="tab-KienThucATTP" data-bs-toggle="tab" href="#KienThucATTP" role="tab"
+                  aria-controls="KienThucATTP" aria-selected="true">
+                  <span class="badge bg-info" style="font-size: 16px">Bài viết An toàn thực phẩm</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content" id="customTabContent">
+              <div class="tab-pane fade show active" id="KienThucATTP" role="tabpanel">
+                <div class="row gx-4">
+                  <div class="col-lg-3 col-sm-12 col-12">
+                    <label *ngIf="!NotificationService.IsMobile" class="form-label">Nhóm
+                    </label>
+                    <select class="form-select" [(ngModel)]="KienThucATTPService.BaseParameter.ParentID">
+                      <option [value]="0">
+                        Tất cả</option>
+                      <option *ngFor="let item of CauHoiNhomService.List;" [value]="item.ID">
+                        {{item.Name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-7 col-sm-12 col-12">
+                    <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                    <input [(ngModel)]="KienThucATTPService.BaseParameter.SearchString" placeholder="Tìm ..."
+                      class="form-control" (keyup.enter)="KienThucATTPSearch()" />
+                  </div>
+                  <div class="col-lg-2 col-sm-6 col-12">
+                    <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                    <div class="row gx-4">
+                      <div class="col-lg-6 col-sm-6 col-6">
+                        <a style="width: 100%;" class="btn btn-success" title="Tìm" (click)="KienThucATTPSearch()"><i
+                            class="bi bi-search"></i></a>
+                      </div>
+                      <div class="col-lg-6 col-sm-6 col-6">
+                        <a style="width: 100%;" class="btn btn-success" title="Thêm mới" (click)="KienThucATTPAdd(0)"><i
+                            class="bi bi-plus"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4 card-info">
+                  <div class="card-header">
+                    <h5 class="card-title text-white">
+                      Danh sách
+                      <span *ngIf="KienThucATTPService.List">({{ KienThucATTPService.List.length }} items)</span>
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-outer">
+                      <div class="table-responsive">
+                        <table *ngIf="!NotificationService.IsMobile" mat-table matSort #KienThucATTPSort="matSort"
+                          [dataSource]="KienThucATTPService.DataSource" class="table table-striped m-0">
+                          <ng-container matColumnDef="STT">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              STT
+                            </th>
+                            <td mat-cell *matCellDef="let element; index as i" style="text-align: center">
+                              <div *ngIf="KienThucATTPPaginator">
+                                {{
+                                KienThucATTPPaginator.pageSize *
+                                KienThucATTPPaginator.pageIndex +
+                                i +
+                                1
+                                }}
+                              </div>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="ID">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              ID
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element.ID }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="FileName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Hình đại diện
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              <img width="300" height="200" src="{{element.FileName}}" class="img-fluid rounded">
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="NgayGhiNhan">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Ngày ghi nhận
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{element.NgayGhiNhan
+                              | date:'dd/MM/yyyy'}}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Tiêu đề
+                            </th>
+                            <td mat-cell *matCellDef="let element" style="width: 600px; white-space: normal;">
+                              <a style="cursor: pointer; white-space: normal;" title="{{element.Name}}"
+                                class="link-primary" (click)="KienThucATTPAdd(element.ID)"><b>{{element.Name}}</b></a>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Save">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                            <td mat-cell *matCellDef="let element">
+                              <a class="btn btn-danger" (click)="KienThucATTPDelete(element)" *ngIf="element.ID > 0"><i
+                                  class="bi bi-trash"></i>
+                              </a>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="KienThucATTPService.DisplayColumns003"></tr>
+                          <tr mat-row *matRowDef="let row; columns: KienThucATTPService.DisplayColumns003"></tr>
+                        </table>
+                        <mat-paginator *ngIf="!NotificationService.IsMobile" #KienThucATTPPaginator="matPaginator"
+                          [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="6"
+                          [showFirstLastButtons]></mat-paginator>
+
+                        <table *ngIf="NotificationService.IsMobile" mat-table matSort #KienThucATTPSort="matSort"
+                          [dataSource]="KienThucATTPService.DataSource" class="table table-striped m-0">
+                          <ng-container matColumnDef="STT">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Danh sách
+                            </th>
+                            <td mat-cell *matCellDef="let element; index as i">
+                              <div class="row gx-4">
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                  <label>Nhóm: </label>
+                                  <select class="form-select" [(ngModel)]="element.ParentID">
+                                    <option *ngFor="let item of CauHoiNhomService.List;" [value]="item.ID">
+                                      {{item.Name}}</option>
+                                  </select>
+                                </div>
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                  <label>Tiêu đề: </label>
+                                  <a style="cursor: pointer;" title="{{element.Name}}" class="link-primary"
+                                    style="white-space: normal;"
+                                    (click)="KienThucATTPAdd(element.ID)"><b>{{element.Name}}</b></a>
+                                </div>
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                  <label>Hình đại diện: </label>
+                                  <br />
+                                  <img src="{{element.FileName}}" class="img-fluid rounded">
+                                </div>
+                                <div class="row gx-4">
+                                  <div class="col-lg-12 col-sm-12 col-12">
+                                    <a class="btn btn-danger" style="width: 100%" (click)="KienThucATTPDelete(element)"
+                                      *ngIf="element.ID > 0"><i class="bi bi-trash"></i>
+                                    </a>
+                                  </div>
+                                  <br />
+                                  <br />
+                                </div>
+                              </div>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="
+                              KienThucATTPService.DisplayColumnsMobile
+                            "></tr>
+                          <tr mat-row *matRowDef="
+                              let row;
+                              columns: KienThucATTPService.DisplayColumnsMobile
+                            "></tr>
+                        </table>
+                        <mat-paginator *ngIf="NotificationService.IsMobile" #KienThucATTPPaginator="matPaginator"
+                          [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="10000"
+                          [showFirstLastButtons]></mat-paginator>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loading *ngIf="KienThucATTPService.IsShowLoading"></app-loading>

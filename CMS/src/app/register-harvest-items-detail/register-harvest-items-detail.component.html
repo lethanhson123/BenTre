@@ -1,0 +1,80 @@
+<div class="custom-tabs-container">
+    <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-RegisterHarvestItemsDetail" data-bs-toggle="tab"
+                href="#RegisterHarvestItemsDetail" role="tab" aria-controls="RegisterHarvestItemsDetail"
+                aria-selected="true">
+                <span class="badge bg-info" style="font-size: 16px;">Kiểm soát thu hoạch</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a style="cursor: pointer;" class="nav-link" id="tab-Close" data-bs-toggle="tab" (click)="Close()"
+                role="tab" aria-controls="Close" aria-selected="false">
+                <span class="badge bg-danger" style="font-size: 16px;"><i class="bi bi-x-lg"></i></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="customTabContent">
+        <div class="tab-pane fade show active" id="RegisterHarvestItemsDetail" role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <a style="width: 100%;" title="Lưu thay đổi" (click)="RegisterHarvestItemsSave()"
+                            class="btn btn-info"><i class="bi bi-sd-card"></i> Lưu thay đổi</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-4">
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Thu hoạch theo Giấy chứng nhận (tấn)</label>
+                        <input class="form-control" type="number" placeholder="Khối lượng thu hoạch (tấn)"
+                            name="RegisterHarvestItemsService.FormData.SoLuong001"
+                            [(ngModel)]="RegisterHarvestItemsService.FormData.SoLuong001" style="text-align: right;">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Phương tiện vận chuyển</label>
+                        <input name="Code001" [(ngModel)]="RegisterHarvestItemsService.FormData.Code001"
+                            placeholder="Phương tiện vận chuyển" type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Ghi chú</label>
+                        <input name="Note001" [(ngModel)]="RegisterHarvestItemsService.FormData.Note001"
+                            placeholder="Ghi chú" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Giấy chứng nhận xuất xứ</label>
+                        <input name="GiayChungNhanXuatXu"
+                            [(ngModel)]="RegisterHarvestItemsService.FormData.GiayChungNhanXuatXu"
+                            placeholder="Giấy chứng nhận xuất xứ" type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Ngày cấp</label>
+                        <input [ngModel]="RegisterHarvestItemsService.FormData.NgayGhiNhan | date:'yyyy-MM-dd'"
+                            (ngModelChange)="DateNgayGhiNhan($event)" [ngModelOptions]="{ updateOn: 'blur' }"
+                            type="date" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Phiếu kiểm soát thu hoạch</label>&nbsp;&nbsp;&nbsp;<a
+                            *ngIf="RegisterHarvestItemsService.FormData.FileName" (click)="OpenWindowByURL()"
+                            title="RegisterHarvestItemsService.FormData.FileName" style="cursor: pointer;"><b>[Xem tập
+                                tin]</b></a>
+                        <input name="FileName" type="file" (change)="ChangeFileName($event.target.files)"
+                            class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <label class="form-label">Giấy chứng nhận xuất xứ</label>&nbsp;&nbsp;&nbsp;<a
+                            *ngIf="RegisterHarvestItemsService.FormData.FileName001" (click)="OpenWindowByURL001()"
+                            title="RegisterHarvestItemsService.FormData.FileName001" style="cursor: pointer;"><b>[Xem
+                                tập tin]</b></a>
+                        <input name="FileName001" type="file" (change)="ChangeFileName001($event.target.files)"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="RegisterHarvestItemsService.IsShowLoading"></app-loading>

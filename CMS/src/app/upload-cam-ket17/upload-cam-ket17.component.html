@@ -1,0 +1,50 @@
+<div class="app-body">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card" style="margin-left: 1px;">
+                <div class="card-body">
+                    <div class="custom-tabs-container">
+                        <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="tab-UploadCamKet17" data-bs-toggle="tab" href="#UploadCamKet17"
+                                    role="tab" aria-controls="UploadCamKet17" aria-selected="true">
+                                    <span class="badge bg-info" style="font-size: 16px;">Upload Cam kết 17</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="customTabContent">
+                            <div class="tab-pane fade show active" id="UploadCamKet17" role="tabpanel">
+                                <div class="row gx-4">
+                                    <div class="col-lg-4 col-sm-12 col-12">
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <h1>Upload Cam kết 17</h1>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Bước 01:</label> <a class="link-primary"
+                                                target="_blank" href="{{excelUploadCamKet17URL}}" title="Tải về">Tải về</a>
+                                            file
+                                            excel mẫu
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <label class="form-label">Bước 02:</label> Chọn file
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 col-12">
+                                            <input class="form-control" type="file" #uploadUploadCamKet17
+                                                (change)="ChangeUploadCamKet17($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                                        </div>                                        
+                                        <br />
+                                        <button [disabled]="!isUploadCamKet17" class="btn btn-info"
+                                            (click)="SubmitUploadCamKet17()" style="width: 100%;">Upload</button>
+                                    </div>
+                                    <div class="col-lg-8 col-sm-12 col-12">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="UploadService.IsShowLoading"></app-loading>

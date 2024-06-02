@@ -1,0 +1,72 @@
+﻿@model Website.Models.ViewModel;
+
+@inject Service.Interface.IKienThucATTPService _KienThucATTPService;
+
+@{
+    List<Data.Model.KienThucATTP> listBaiViet = await _KienThucATTPService.GetBySearchStringToListAsync(Model.SearchString);
+
+
+    ViewData["Title"] = Model.SearchString;
+    ViewData["Description"] = Model.SearchString;
+    ViewData["URLImage"] = Model.SearchString;
+    ViewData["URLCurrent"] = Model.SearchString;
+}
+
+<header>
+    <div class="bg-white p-0">
+        <div class="container" style="background-color: #EFFDF5;">
+            <div class="container-nav">
+                <div class="content-img-detail">
+                    <a href="../">
+                        <img id="img-detail" src="./img/logo.png" alt=""
+                             title="Quản lý an toàn thực phẩm và truy xuất nguồn gốc nông lâm thủy sản tỉnh Bến Tre">
+                    </a>
+                </div>
+                <h4 class="desc-detail" style="text-align: justify;">
+                    Quản lý an toàn thực phẩm và truy xuất nguồn gốc nông lâm thủy sản tỉnh Bến Tre
+                </h4>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="blog-grid-section blog-grid-page" style="padding-top:150px">
+        <div class="container">
+            <div class="row mb-5 align-items-end">
+                <div class="col-12">
+                    <div>
+                        <h4 class="title" data-aos="fade-up" data-aos-duration="1000">Kết quả tìm kiếm theo từ khóa: @Model.SearchString</h4>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="section-heading inner-heading">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @{
+                        foreach (Data.Model.KienThucATTP item in listBaiViet)
+                        {
+                            item.Code = Helper.GlobalHelper.DomainURL + Helper.GlobalHelper.Blog + "/" + item.Code + "-" + item.ID + ".html";
+
+                            <div class="col-12 col-md-6" data-aos="fade-up" data-aos-duration="1400">
+                                <div class="blog-grid-style-3">
+                                    <div class="blog-img">
+                                        <a href="@item.Code"><img src="@item.FileName" alt="@item.Name" title="@item.Name"></a>
+                                    </div>
+                                    <div class="blog-info">
+                                        <h6 class="title-shorten-text"><a href="@item.Code">@item.Name</a></h6>
+                                        <p class="shorten-text">@item.Description</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+        </div>
+</main>

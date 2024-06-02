@@ -1,0 +1,257 @@
+<div class="app-body">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card" style="margin-left: 1px;">
+                <div class="card-body">
+                    <div class="custom-tabs-container">
+                        <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="tab-StateAgency" data-bs-toggle="tab" href="#StateAgency"
+                                    role="tab" aria-controls="StateAgency" aria-selected="true">
+                                    <span class="badge bg-info" style="font-size: 16px;">Cơ quan quản lý</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="customTabContent">
+                            <div class="tab-pane fade show active" id="StateAgency" role="tabpanel">
+                                <div class="row gx-4">
+                                    <div class="col-lg-11 col-sm-12 col-12">
+                                        <input [(ngModel)]="StateAgencyService.BaseParameter.SearchString"
+                                            placeholder="Tìm ..." class="form-control"
+                                            (keyup.enter)="StateAgencySearch()">
+                                    </div>
+                                    <div class="col-lg-1 col-sm-12 col-12">
+                                        <a style="width: 100%;" class="btn btn-success" title="Tìm"
+                                            (click)="StateAgencySearch()"><i
+                                                class="bi bi-search"></i></a>&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <div class="card mb-4 card-info">
+                                    <div class="card-header">
+                                        <h5 class="card-title text-white">Danh sách
+                                            <span *ngIf="StateAgencyService.List">({{StateAgencyService.List.length}}
+                                                items)</span>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-outer">
+                                            <div class="table-responsive">
+                                                <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                                    #StateAgencySort="matSort"
+                                                    [dataSource]="StateAgencyService.DataSource"
+                                                    class="table table-striped m-0">
+                                                    <ng-container matColumnDef="STT">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            STT
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element; index as i;"
+                                                            style="text-align: center;">
+                                                            <div *ngIf="StateAgencyPaginator">
+                                                                {{StateAgencyPaginator.pageSize *
+                                                                StateAgencyPaginator.pageIndex + i + 1}}
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="ID">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.ID}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <!-- <ng-container matColumnDef="district_id">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Quận huyện
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <select class="form-select" name="district_id"
+                                                                [(ngModel)]="element.district_id"
+                                                                (change)="WardDataSearch(element.district_id)">
+                                                                <option [value]="0">Tất cả</option>
+                                                                <option *ngFor="let item of DistrictDataService.List;"
+                                                                    [value]="item.ID">
+                                                                    {{item.Name}}</option>
+                                                            </select>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="ward_id">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Xã phường
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <select class="form-select" name="ward_id"
+                                                                [(ngModel)]="element.ward_id">
+                                                                <option [value]="0">Tất cả</option>
+                                                                <option *ngFor="let item of WardDataService.List;"
+                                                                    [value]="item.ID">
+                                                                    {{item.Name}}</option>
+                                                            </select>
+                                                        </td>
+                                                    </ng-container> -->
+                                                    <ng-container matColumnDef="Name">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tiêu đề
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <input class="form-control" type="text"
+                                                                placeholder="Tiêu đề" name="Name{{element.ID}}"
+                                                                [(ngModel)]="element.Name">
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Display">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Điện thoại
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <input class="form-control" type="text"
+                                                                placeholder="Điện thoại" name="Display{{element.ID}}"
+                                                                [(ngModel)]="element.Display">
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Note">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Địa chỉ
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <input class="form-control" type="text"
+                                                                placeholder="Địa chỉ" name="Note{{element.ID}}"
+                                                                [(ngModel)]="element.Note">
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="ParentID">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Parent
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <input class="form-control" type="number" placeholder="0"
+                                                                name="ParentID{{ element.ID }}"
+                                                                [(ngModel)]="element.ParentID"
+                                                                style="text-align: right" />
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="SortOrder">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Sắp xếp
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <input class="form-control" type="number" placeholder="0"
+                                                                name="SortOrder{{ element.ID }}"
+                                                                [(ngModel)]="element.SortOrder"
+                                                                style="text-align: right" />
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Active">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Kích hoạt
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="Active{{ element.ID }}"
+                                                                    [(ngModel)]="element.Active" />
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Save">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <a class="btn btn-info"
+                                                                (click)="StateAgencySave(element)"><i
+                                                                    class="bi bi-sd-card"></i>
+                                                            </a>&nbsp;&nbsp;&nbsp;
+                                                            <a class="btn btn-danger"
+                                                                (click)="StateAgencyDelete(element)"
+                                                                *ngIf="element.ID>0"><i class="bi bi-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row
+                                                        *matHeaderRowDef="StateAgencyService.DisplayColumns003">
+                                                    </tr>
+                                                    <tr mat-row
+                                                        *matRowDef="let row; columns: StateAgencyService.DisplayColumns003;">
+                                                    </tr>
+                                                </table>
+                                                <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                                    #StateAgencyPaginator="matPaginator"
+                                                    [pageSizeOptions]="[10,20,50,100]" [pageSize]="6"
+                                                    [showFirstLastButtons]></mat-paginator>
+
+                                                <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                                    #StateAgencySort="matSort"
+                                                    [dataSource]="StateAgencyService.DataSource"
+                                                    class="table table-striped m-0">
+                                                    <ng-container matColumnDef="STT">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            Danh sách
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element; index as i;">
+                                                            <div class="row gx-4">
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label class="form-label">Tiêu đề</label>
+                                                                    <input class="form-control" type="text"
+                                                                        placeholder="Tiêu đề" name="Name{{element.ID}}"
+                                                                        [(ngModel)]="element.Name">
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label class="form-label">Parent</label>
+                                                                    <input class="form-control" type="number"
+                                                                        placeholder="0" name="ParentID{{element.ID}}"
+                                                                        [(ngModel)]="element.ParentID"
+                                                                        style="text-align: right;">
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <label class="form-label">Sắp xếp</label>
+                                                                    <input class="form-control" type="number"
+                                                                        placeholder="0" name="SortOrder{{element.ID}}"
+                                                                        [(ngModel)]="element.SortOrder"
+                                                                        style="text-align: right;">
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            name="Active{{element.ID}}"
+                                                                            [(ngModel)]="element.Active">
+                                                                        <label class="form-label">Kích hoạt</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row gx-4">
+                                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                                        <a class="btn btn-info" style="width: 100%;"
+                                                                            (click)="StateAgencySave(element)"><i
+                                                                                class="bi bi-sd-card"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-sm-6 col-6">
+                                                                        <a class="btn btn-danger" style="width: 100%;"
+                                                                            (click)="StateAgencyDelete(element)"
+                                                                            *ngIf="element.ID>0"><i
+                                                                                class="bi bi-trash"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <br />
+                                                                    <br />
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row
+                                                        *matHeaderRowDef="StateAgencyService.DisplayColumnsMobile">
+                                                    </tr>
+                                                    <tr mat-row
+                                                        *matRowDef="let row; columns: StateAgencyService.DisplayColumnsMobile;">
+                                                    </tr>
+                                                </table>
+                                                <mat-paginator *ngIf="NotificationService.IsMobile"
+                                                    #StateAgencyPaginator="matPaginator"
+                                                    [pageSizeOptions]="[10,20,50,100]" [pageSize]="10000"
+                                                    [showFirstLastButtons]></mat-paginator>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="StateAgencyService.IsShowLoading"></app-loading>

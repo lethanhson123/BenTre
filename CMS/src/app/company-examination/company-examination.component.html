@@ -1,0 +1,195 @@
+<div class="app-body">
+  <div class="row">
+    <div class="col-xxl-12">
+      <div class="card" style="margin-left: 1px">
+        <div class="card-body">
+          <div class="custom-tabs-container">
+            <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="tab-CompanyExamination" data-bs-toggle="tab" href="#CompanyExamination"
+                  role="tab" aria-controls="CompanyExamination" aria-selected="true">
+                  <span class="badge bg-info" style="font-size: 16px">Khảo sát ATTP</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content" id="customTabContent">
+              <div class="tab-pane fade show active" id="CompanyExamination" role="tabpanel">
+                <div class="row gx-4">
+                  <div class="col-lg-6 col-sm-12 col-12">
+                    <label *ngIf="!NotificationService.IsMobile" class="form-label">Đơn vị Tổ chức
+                    </label>
+                    <mat-select class="form-control" name="CompanyInfoLichSuKiemTraService.BaseParameter.ParentID"
+                      [(ngModel)]="
+                        CompanyExaminationService.BaseParameter.ParentID
+                      ">
+                      <input placeholder="Tìm..." class="form-control"
+                        (keyup)="CompanyInfoFilter($event.target.value)" />
+                      <mat-option *ngFor="let item of CompanyInfoService.ListFilter" [value]="item.ID">
+                        {{ item.Name }} - {{ item.phone }} - {{ item.DKKD }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="col-lg-4 col-sm-12 col-12">
+                    <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                    <input [(ngModel)]="CompanyExaminationService.BaseParameter.SearchString" placeholder="Tìm ..."
+                      class="form-control" (keyup.enter)="CompanyExaminationSearch()" />
+                  </div>
+                  <div class="col-lg-2 col-sm-6 col-12">
+                    <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                    <div class="row gx-4">
+                      <div class="col-lg-6 col-sm-6 col-6">
+                        <a style="width: 100%" class="btn btn-success" title="Tìm"
+                          (click)="CompanyExaminationSearch()"><i class="bi bi-search"></i></a>
+                      </div>
+                      <!-- <div class="col-lg-6 col-sm-6 col-6">
+                        <a style="width: 100%" class="btn btn-success" title="Thêm mới"
+                          (click)="CompanyExaminationAdd(0)"><i class="bi bi-plus"></i></a>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4 card-info">
+                  <div class="card-header">
+                    <h5 class="card-title text-white">
+                      Danh sách
+                      <span *ngIf="CompanyExaminationService.List">({{
+                        CompanyExaminationService.List.length
+                        }}
+                        items)</span>
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-outer">
+                      <div class="table-responsive">
+                        <table *ngIf="!NotificationService.IsMobile" mat-table matSort #CompanyExaminationSort="matSort"
+                          [dataSource]="CompanyExaminationService.DataSource" class="table table-striped m-0">
+                          <ng-container matColumnDef="STT">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              STT
+                            </th>
+                            <td mat-cell *matCellDef="let element; index as i" style="text-align: center">
+                              <div *ngIf="CompanyExaminationPaginator">
+                                {{
+                                CompanyExaminationPaginator.pageSize *
+                                CompanyExaminationPaginator.pageIndex +
+                                i +
+                                1
+                                }}
+                              </div>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="ID">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              ID
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element.ID }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Nhóm
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element.Description }}
+                            </td>
+                          </ng-container>                         
+                          <ng-container matColumnDef="Name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Tiêu đề
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              <a style="cursor: pointer" title="{{ element.Name }}" class="link-primary"
+                                (click)="CompanyExaminationAdd(element.ID)"><b>{{ element.Name }}</b></a>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="NgayGhiNhan">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Ghi nhận
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element.NgayGhiNhan | date : "dd/MM/yyyy" }}
+                            </td>
+                          </ng-container>                          
+                          <ng-container matColumnDef="Save">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                            <td mat-cell *matCellDef="let element">
+                              <a class="btn btn-danger" (click)="CompanyExaminationDelete(element)" 
+                                *ngIf="element.ID > 0"><i class="bi bi-trash"></i>
+                              </a>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="
+                              CompanyExaminationService.DisplayColumns001
+                            "></tr>
+                          <tr mat-row *matRowDef="
+                              let row;
+                              columns: CompanyExaminationService.DisplayColumns001
+                            "></tr>
+                        </table>
+                        <mat-paginator *ngIf="!NotificationService.IsMobile" #CompanyExaminationPaginator="matPaginator"
+                          [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="6" [showFirstLastButtons]></mat-paginator>
+
+                        <table *ngIf="NotificationService.IsMobile" mat-table matSort #CompanyExaminationSort="matSort"
+                          [dataSource]="CompanyExaminationService.DataSource" class="table table-striped m-0">
+                          <ng-container matColumnDef="STT">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Danh sách
+                            </th>
+                            <td mat-cell *matCellDef="let element; index as i">
+                              <div class="row gx-4">                                
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                  <label>Nhóm</label>
+                                  <label class="form-label">{{ element.Description }}</label>                                  
+                                </div>
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                  <label>Tiêu đề</label>
+                                  <a style="cursor: pointer" title="{{ element.Name }}" class="link-primary"
+                                  (click)="CompanyExaminationAdd(element.ID)"><b>{{ element.Name }}</b></a>
+                                </div>
+                                <div class="col-lg-12 col-sm-12 col-12">
+                                  <label>Ghi nhận</label>
+                                  {{ element.NgayGhiNhan | date : "dd/MM/yyyy" }}
+                                </div>                                                               
+                                <div class="row gx-4">
+                                  <div class="col-lg-6 col-sm-6 col-6">
+                                    <a class="btn btn-info" style="width: 100%"
+                                      (click)="CompanyExaminationSave(element)"><i class="bi bi-sd-card"></i>
+                                    </a>
+                                  </div>
+                                  <div class="col-lg-6 col-sm-6 col-6">
+                                    <a class="btn btn-danger" style="width: 100%" (click)="
+                                        CompanyExaminationDelete(element)
+                                      " *ngIf="element.ID > 0"><i class="bi bi-trash"></i>
+                                    </a>
+                                  </div>
+                                  <br />
+                                  <br />
+                                </div>
+                              </div>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="
+                              CompanyExaminationService.DisplayColumnsMobile
+                            "></tr>
+                          <tr mat-row *matRowDef="
+                              let row;
+                              columns: CompanyExaminationService.DisplayColumnsMobile
+                            "></tr>
+                        </table>
+                        <mat-paginator *ngIf="NotificationService.IsMobile" #CompanyExaminationPaginator="matPaginator"
+                          [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="10000"
+                          [showFirstLastButtons]></mat-paginator>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loading *ngIf="CompanyExaminationService.IsShowLoading"></app-loading>

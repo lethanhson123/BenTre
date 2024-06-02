@@ -1,0 +1,201 @@
+<div class="app-body">
+  <div class="row">
+    <div class="col-xxl-12">
+      <div class="card" style="margin-left: 1px">
+        <div class="card-body">
+          <div class="custom-tabs-container">
+            <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="tab-NguonVon" data-bs-toggle="tab" href="#NguonVon" role="tab"
+                  aria-controls="NguonVon" aria-selected="true">
+                  <span class="badge bg-info" style="font-size: 16px">Nguồn vốn</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content" id="customTabContent">
+              <div class="tab-pane fade show active" id="NguonVon" role="tabpanel">
+                <div class="row gx-4">
+                  <div class="col-lg-2 col-sm-12 col-12">
+                    <label class="form-label">Năm</label>
+                    <input type="number" [(ngModel)]="NguonVonService.BaseParameter.Nam" class="form-control"
+                      style="text-align: right;">
+                  </div>
+                  <div class="col-lg-8 col-sm-12 col-12">
+                    <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                    <input [(ngModel)]="NguonVonService.BaseParameter.SearchString" placeholder="Tìm ..."
+                      class="form-control" (keyup.enter)="NguonVonSearch()" />
+                  </div>
+                  <div class="col-lg-2 col-sm-12 col-12">
+                    <label *ngIf="!NotificationService.IsMobile" class="form-label">.</label>
+                    <div class="row gx-4">
+                      <div class="col-lg-6 col-sm-6 col-6">
+                        <a style="width: 100%;" class="btn btn-success" title="Tìm" (click)="NguonVonSearch()"><i
+                            class="bi bi-search"></i></a>
+                      </div>
+                      <div class="col-lg-6 col-sm-6 col-6">
+                        <a style="width: 100%;" class="btn btn-success" title="Thêm mới" (click)="NguonVonAdd(0)"><i
+                            class="bi bi-plus"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4 card-info">
+                  <div class="card-header">
+                    <h5 class="card-title text-white">
+                      Danh sách
+                      <span *ngIf="NguonVonService.List">({{ NguonVonService.List.length }} items)</span>
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-outer">
+                      <div class="table-responsive">
+                        <table *ngIf="!NotificationService.IsMobile" mat-table matSort #NguonVonSort="matSort"
+                          [dataSource]="NguonVonService.DataSource" class="table table-striped m-0">
+                          <ng-container matColumnDef="STT">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              STT
+                            </th>
+                            <td mat-cell *matCellDef="let element; index as i" style="text-align: center">
+                              <div *ngIf="NguonVonPaginator">
+                                {{
+                                NguonVonPaginator.pageSize *
+                                NguonVonPaginator.pageIndex +
+                                i +
+                                1
+                                }}
+                              </div>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Tiêu đề
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              <a style="cursor: pointer" title="{{element.Name}}" class="link-primary"
+                                (click)="NguonVonAdd(element.ID)"><b>{{element.Name}}</b></a>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Phân loại
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{element.Description}}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Nam">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Năm tài chính
+                            </th>
+                            <td mat-cell *matCellDef="let element" style="text-align: right;">
+                              {{element.Nam}}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="StateAgencyName001">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Cấp vốn
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{element.StateAgencyName001}}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="StateAgencyName002">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Nhận vốn
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{element.StateAgencyName002}}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="AgencyDepartmentName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Phòng ban
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{element.AgencyDepartmentName}}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="TongCong">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Tổng vốn
+                            </th>
+                            <td mat-cell *matCellDef="let element" style="text-align: right;">
+                              <b>{{element.TongCong |
+                                number:
+                                '1.0-0'}}</b>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="DaChi">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Đã chi
+                            </th>
+                            <td mat-cell *matCellDef="let element" style="text-align: right;">
+                              <b style="color: red;">{{element.DaChi |
+                                number:
+                                '1.0-0'}}</b>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="ConLai">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Còn lại
+                            </th>
+                            <td mat-cell *matCellDef="let element" style="text-align: right;">
+                              <b style="color: green;">{{element.ConLai |
+                                number:
+                                '1.0-0'}}</b>
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Save">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                            <td mat-cell *matCellDef="let element">
+                              <a class="btn btn-success" (click)="NguonVonAdd(element.ID)"><i class="bi bi-sd-card"></i>
+                              </a>&nbsp;&nbsp;&nbsp;
+                              <a class="btn btn-danger" (click)="NguonVonDelete(element)" *ngIf="element.ID>0"><i
+                                  class="bi bi-trash"></i>
+                              </a>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="NguonVonService.DisplayColumns001"></tr>
+                          <tr mat-row *matRowDef="
+                              let row;
+                              columns: NguonVonService.DisplayColumns001
+                            "></tr>
+                        </table>
+                        <mat-paginator *ngIf="!NotificationService.IsMobile" #NguonVonPaginator="matPaginator"
+                          [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="6"
+                          [showFirstLastButtons]></mat-paginator>
+
+                        <table *ngIf="NotificationService.IsMobile" mat-table matSort #NguonVonSort="matSort"
+                          [dataSource]="NguonVonService.DataSource" class="table table-striped m-0">
+                          <ng-container matColumnDef="STT">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              Danh sách
+                            </th>
+                            <td mat-cell *matCellDef="let element; index as i">
+
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="
+                              NguonVonService.DisplayColumnsMobile
+                            "></tr>
+                          <tr mat-row *matRowDef="
+                              let row;
+                              columns: NguonVonService.DisplayColumnsMobile
+                            "></tr>
+                        </table>
+                        <mat-paginator *ngIf="NotificationService.IsMobile" #NguonVonPaginator="matPaginator"
+                          [pageSizeOptions]="[10, 20, 50, 100, 500, 999]" [pageSize]="10000"
+                          [showFirstLastButtons]></mat-paginator>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loading *ngIf="NguonVonService.IsShowLoading"></app-loading>

@@ -1,0 +1,275 @@
+<div class="custom-tabs-container">
+    <ul class="nav nav-tabs justify-content-end" id="customTab5" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-PlanThamDinhDetailNhuyenTheHaiManhVo" data-bs-toggle="tab"
+                href="#PlanThamDinhDetailNhuyenTheHaiManhVo" role="tab"
+                aria-controls="PlanThamDinhDetailNhuyenTheHaiManhVo" aria-selected="true">
+                <span class="badge bg-info" style="font-size: 16px;">Nhuyễn thể 02 mảnh vỏ</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a style="cursor: pointer;" class="nav-link" id="tab-Close" data-bs-toggle="tab" (click)="Close()"
+                role="tab" aria-controls="Close" aria-selected="false">
+                <span class="badge bg-danger" style="font-size: 16px;"><i class="bi bi-x-lg"></i></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="customTabContent">
+        <div class="tab-pane fade show active" id="PlanThamDinhDetailNhuyenTheHaiManhVo" role="tabpanel">
+            <div class="row gx-4">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <a style="width: 100%;" title="Lưu thay đổi" (click)="PlanThamDinhSave()"
+                            class="btn btn-info"><i class="bi bi-sd-card"></i> Lưu thay
+                            đổi</a>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <h4>Bước 01: Nhập Thông tin</h4>
+                    </div>
+                    <div class="row gx-4">
+                        <div class="col-lg-4 col-sm-12 col-12">
+                            <label class="form-label">Nội dung</label>
+                            <input name="Name" [(ngModel)]="PlanThamDinhService.FormData.Name" placeholder="Nội dung"
+                                type="text" class="form-control" />
+                        </div>
+                        <div class="col-lg-4 col-sm-12 col-12">
+                            <label class="form-label">Ngày bắt đầu</label>
+                            <input [ngModel]="PlanThamDinhService.FormData.NgayBatDau | date:'yyyy-MM-dd'"
+                                (ngModelChange)="DateNgayBatDau($event)" [ngModelOptions]="{ updateOn: 'blur' }"
+                                type="date" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-lg-4 col-sm-12 col-12">
+                            <label class="form-label">Ngày kết thúc</label>
+                            <input [ngModel]="PlanThamDinhService.FormData.NgayKetThuc | date:'yyyy-MM-dd'"
+                                (ngModelChange)="DateNgayKetThuc($event)" [ngModelOptions]="{ updateOn: 'blur' }"
+                                type="date" class="form-control" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="card mb-4 card-success">
+                        <div class="card-header">
+                            <h5 class="card-title text-white">Bước 02: Nhập thông tin lấy mẫu</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-outer">
+                                <div class="table-responsive">
+                                    <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                        #PlanThamDinhThanhVienSort="matSort"
+                                        [dataSource]="PlanThamDinhThanhVienService.DataSource"
+                                        class="table table-striped m-0">
+                                        <ng-container matColumnDef="ThanhVienID">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cán bộ
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <select class="form-select" name="element.ThanhVienID"
+                                                    [(ngModel)]="element.ThanhVienID">
+                                                    <option *ngFor="let item of ThanhVienService.List;"
+                                                        [value]="item.ID">
+                                                        {{item.Name}} ({{item.AgencyDepartmentName}} -
+                                                        {{item.StateAgencyName}})</option>
+                                                </select>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="DistrictDataID">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Quận huyện
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <select class="form-select" name="element.DistrictDataID"
+                                                    [(ngModel)]="element.DistrictDataID">
+                                                    <option *ngFor="let item of DistrictDataService.List;"
+                                                        [value]="item.ID">
+                                                        {{item.Name}}</option>
+                                                </select>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="SoLuongLayMau">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Số lượng mẫu
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input class="form-control" type="number" placeholder="0"
+                                                    name="SoLuongLayMau{{ element.ID }}"
+                                                    [(ngModel)]="element.SoLuongLayMau" style="text-align: right;" />
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Description">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Chỉ tiêu phân tích
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input class="form-control" type="text" placeholder="Chỉ tiêu"
+                                                    name="Description{{ element.ID }}"
+                                                    [(ngModel)]="element.Description" />
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="NuocRong">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Nước ròng
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input class="form-control" type="text" placeholder="Nước ròng"
+                                                    name="NuocRong{{ element.ID }}" [(ngModel)]="element.NuocRong" />
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="NuocLon">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Nước lớn
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input class="form-control" type="text" placeholder="Nước lớn"
+                                                    name="NuocLon{{ element.ID }}" [(ngModel)]="element.NuocLon" />
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Save">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <a class="btn btn-info" (click)="PlanThamDinhThanhVienSave(element)"
+                                                    *ngIf="element.ID==0"><i class="bi bi-sd-card"></i>
+                                                </a>
+                                                <a class="btn btn-danger" (click)="PlanThamDinhThanhVienDelete(element)"
+                                                    *ngIf="element.ID>0"><i class="bi bi-trash"></i>
+                                                </a>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="PlanThamDinhThanhVienService.DisplayColumns002">
+                                        </tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: PlanThamDinhThanhVienService.DisplayColumns002;">
+                                        </tr>
+                                    </table>
+                                    <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                        #PlanThamDinhThanhVienPaginator="matPaginator"
+                                        [pageSizeOptions]="[10,20,50,100]" [pageSize]="1000"
+                                        [showFirstLastButtons]></mat-paginator>
+
+                                    <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                        #PlanThamDinhThanhVienSort="matSort"
+                                        [dataSource]="PlanThamDinhThanhVienService.DataSource"
+                                        class="table table-striped m-0">
+                                        <ng-container matColumnDef="STT">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Danh sách
+                                            </th>
+                                            <td mat-cell *matCellDef="let element; index as i;">
+                                                <div class="row gx-4">
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="PlanThamDinhThanhVienService.DisplayColumnsMobile">
+                                        </tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: PlanThamDinhThanhVienService.DisplayColumnsMobile;">
+                                        </tr>
+                                    </table>
+                                    <mat-paginator *ngIf="NotificationService.IsMobile"
+                                        #PlanThamDinhThanhVienPaginator="matPaginator"
+                                        [pageSizeOptions]="[10,20,50,100]" [pageSize]="10000"
+                                        [showFirstLastButtons]></mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <div class="card mb-4 card-primary">
+                        <div class="card-header">
+                            <h5 class="card-title text-white bg-primary">Bước 05 (Sau khi Lưu thay đổi): Tải về
+                                biểu mẫu và Tải lên biểu mẫu đã ký
+                            </h5>
+                        </div>
+                        <div class="card-body bg-primary">
+                            <div class="table-outer">
+                                <div class="table-responsive">
+                                    <table *ngIf="!NotificationService.IsMobile" mat-table matSort
+                                        #PlanThamDinhCompanyDocumentSort="matSort"
+                                        [dataSource]="PlanThamDinhCompanyDocumentService.DataSource"
+                                        class="table table-striped m-0">
+                                        <ng-container matColumnDef="LastUpdatedDate">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Ngày Ghi nhận
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <b>{{element.LastUpdatedDate | date:'dd/MM/yyyy HH:mm:ss'}}</b>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Name">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tiêu đề
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" style="width: 600px;">
+                                                <input class="form-control" type="text" placeholder="Tiêu đề"
+                                                    name="Name{{element.ID}}" [(ngModel)]="element.Name" />
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="FileName">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tải lên
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <input *ngIf="element.ID == 0" type="file"
+                                                    (change)="ChangeFileName(element, $event.target.files)">
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Save">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <a class="btn btn-info"
+                                                    (click)="PlanThamDinhCompanyDocumentSave(element)"><i
+                                                        class="bi bi-sd-card"></i> </a>&nbsp;&nbsp;&nbsp;
+                                                <a class="btn btn-danger"
+                                                    (click)="PlanThamDinhCompanyDocumentDelete(element)"
+                                                    *ngIf="element.ID > 0"><i class="bi bi-trash"></i>
+                                                </a>&nbsp;&nbsp;&nbsp;
+                                                <a *ngIf="element.ID > 0 && element.FileName" class="btn btn-success"
+                                                    title="Tải về" href="{{element.FileName}}" target="_blank"><i
+                                                        class="bi bi-cloud-download"></i>
+                                                </a>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="PlanThamDinhCompanyDocumentService.DisplayColumns001">
+                                        </tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: PlanThamDinhCompanyDocumentService.DisplayColumns001;">
+                                        </tr>
+                                    </table>
+                                    <mat-paginator *ngIf="!NotificationService.IsMobile"
+                                        #PlanThamDinhCompanyDocumentPaginator="matPaginator"
+                                        [pageSizeOptions]="[10,20,50,100]" [pageSize]="1000"
+                                        [showFirstLastButtons]></mat-paginator>
+
+                                    <table *ngIf="NotificationService.IsMobile" mat-table matSort
+                                        #PlanThamDinhCompanyDocumentSort="matSort"
+                                        [dataSource]="PlanThamDinhCompanyDocumentService.DataSource"
+                                        class="table table-striped m-0">
+                                        <ng-container matColumnDef="STT">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Danh sách
+                                            </th>
+                                            <td mat-cell *matCellDef="let element; index as i;">
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="PlanThamDinhCompanyDocumentService.DisplayColumnsMobile">
+                                        </tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: PlanThamDinhCompanyDocumentService.DisplayColumnsMobile;">
+                                        </tr>
+                                    </table>
+                                    <mat-paginator *ngIf="NotificationService.IsMobile"
+                                        #PlanThamDinhCompanyDocumentPaginator="matPaginator"
+                                        [pageSizeOptions]="[10,20,50,100]" [pageSize]="10000"
+                                        [showFirstLastButtons]></mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="PlanThamDinhService.IsShowLoading"></app-loading>
